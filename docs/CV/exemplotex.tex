@@ -1,0 +1,99 @@
+% needs: bibtex doc.aux % <==============================================
+% needs: bibtex master.aux % <===========================================
+%\RequirePackage{filecontents}
+\begin{filecontents*}{pubmaster.bib}
+	@article{latex,
+		title={{\LaTeX} for the study},
+		author={Firstname Surname},
+		year={2014},
+	}
+\end{filecontents*}
+
+\begin{filecontents*}{pubdoc.bib}
+	@article{latexd,
+		title={{\LaTeX} to write a doctor thesis},
+		author={Firstname Surname},
+		year={2015},
+	}
+\end{filecontents*}
+
+
+\documentclass[9pt,a4paper]{moderncv}
+
+\moderncvtheme[blue]{classic}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage[scale=0.85]{geometry}
+\recomputelengths                             % required when changes 
+
+% <=====================================================================
+\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}
+\usepackage{multibib}
+\newcites{master,doc}{{Published as master},{Published as doc}}
+% <=====================================================================
+
+\firstname{First}
+\familyname{Second}                   % optional, 
+
+
+\begin{document}
+	\maketitle
+	
+	\section{Career Objective}
+	
+	\section{Skill Sets}
+	\cventry{Languages:} {C, C++, R, HTML Core Java and AspectJ}{}{} {}{}
+	\cventry{Operating Systems:} {Windows and Linux}{}{} {}{}
+	\cventry{Packages} {Microsoft Office}{}{} {}{}
+	\cventry{Scripts:} {Java Script and VB Script}{}{} {}{}
+	\cventry{Applications}{\LaTeX, Spreadsheet, IBM RSA, Matlab}{}{}{}{}
+	\cventry{Visualization Tools}{Edraw Max, ORA and Pajek}{}{}{}{}
+	
+	\section{Achievements, Awards and Honors}
+	\cventry{2016}{International Biographical Centre (IBC)}{Listed in ``Top 100 Professionals, 2016''}{Cambridge, Engaland}{}{}
+	
+	
+	\section{Professional Affiliations}
+	
+	
+	
+	\section{Professional Activities}
+	
+	\cventry{2016}{Invited Reviewer}{International Journal of Computers and Applications}{Taylor \& Francis}{}{}
+	
+	
+	
+	\section{Areas of Interest}
+	\cvlistitem {Databases, Software Engineering, Aspect-oriented Programming, Program Slicing and Service-oriented Architecture}
+	
+	
+	\section{Workshops/Short Term Courses Attended}
+	
+	\section{Extra Co-Curricular Activities}
+	\cvlistitem{Took a lead in different college level \& inter college level Football Tournaments.}
+	
+	\section{Courses \& Teaching}
+	
+	\nocitemaster{*} % <====================================================
+	\bibliographystylemaster{plain}
+	\bibliographymaster{pubmaster}
+	\nocitedoc{*}
+	\bibliographystyledoc{plain}
+	\bibliographydoc{pubdoc} % <============================================
+	
+	\section{Personal Details}
+	\vspace{1.0cm}
+	\begin{flushright}
+		\par
+		\par
+		\par
+		\par
+		\textbf{AABC}
+	\end{flushright}
+	
+	
+	\textbf{India}\\
+	\textbf{Last Updated: \today}
+\end{document}

@@ -1,0 +1,292 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2015 Xavier Danaux (xdanaux@gmail.com), 2020-2022 moderncv maintainers (github.com/moderncv).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+\documentclass[12pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+% moderncv themesfon
+\moderncvstyle{banking}                             % style options are 'casual' (default), 'classic', 'banking', 'oldstyle' and 'fancy'
+\moderncvcolor{blue}                               % color options 'black', 'blue' (default), 'burgundy', 'green', 'grey', 'orange', 'purple' and 'red'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+\setlength{\footskip}{136.00005pt}                 % depending on the amount of information in the footer, you need to change this value. comment this line out and set it to the size given in the warning
+%\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvheadnamewidth}{10cm}            % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% font loading
+% for luatex and xetex, do not use inputenc and fontenc
+% see https://tex.stackexchange.com/a/496643
+\ifxetexorluatex
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+\setmathfont{Latin Modern Math} 
+\else
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\fi
+
+% document language
+\usepackage[english]{babel}  % FIXME: using spanish breaks moderncv
+
+% personal data
+\name{Arthur}{Boari}
+%\title{Résumé title}                               % optional, remove / comment the line if not wanted
+\born{16 Junho 1995}                                 % optional, remove / comment the line if not wanted
+\address{Rua Ametista, 317}{37.205-002}{Lavras, MG, Brasil}% optional, remove / comment the line if not wanted; the "postcode city" and "country" arguments can be omitted or provided empty
+\phone[mobile]{+55~(35)~99148-6267}                   % optional, remove / comment the line if not wanted; the optional "type" of the phone can be "mobile" (default), "fixed" or "fax"
+%\phone[fixed]{+2~(345)~678~901}
+%\phone[fax]{+3~(456)~789~012}
+\email{eng.arthurboari@gmail.com}                               % optional, remove / comment the line if not wanted
+%\homepage{https://arthurboari.github.io/arthurboari/}                         % optional, remove / comment the line if not wanted
+
+% Social icons
+%\social[linkedin]{john.doe}                        % optional, remove / comment the line if not wanted
+%\social[xing]{john\_doe}                           % optional, remove / comment the line if not wanted
+%\social[github]{jdoe}                              % optional, remove / comment the line if not wanted
+%\social[gitlab]{jdoe}                              % optional, remove / comment the line if not wanted
+%\social[codeberg]{jdoe}                            % optional, remove / comment the line if not wanted
+%\social[bitbucket]{jdoe}                           % optional, remove / comment the line if not wanted
+%\social[stackoverflow]{0000000/johndoe}            % optional, remove / comment the line if not wanted
+
+%\social[skype]{jdoe}                               % optional, remove / comment the line if not wanted
+\social[orcid]{0000-0001-9228-3615}                  % optional, remove / comment the line if not wanted
+\social[researchgate]{Arthur-Boari}                        % optional, remove / comment the line if not wanted
+%\social[researcherid]{jdoe}                        % optional, remove / comment the line if not wanted
+%\social[googlescholar]{googlescholarid}            % optional, remove / comment the line if not wanted
+
+%\social[twitter]{ji\_doe}                          % optional, remove / comment the line if not wanted
+%\social[mastodon]{mastodon.social/web/@user}       % optional, remove / comment the line if not wanted
+%\social[telegram]{jdoe}                            % optional, remove / comment the line if not wanted
+\social[whatsapp]{+55~(35)~99148-6267}                     % optional, remove / comment the line if not wanted
+%\social[signal]{12345678901}                       % optional, remove / comment the line if not wanted
+%\social[matrix]{@johndoe:matrix.org}               % optional, remove / comment the line if not wanted
+
+
+
+
+%\extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+%\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+\quote{Meu nome é Arthur Boari, sou mestrando em Engenharia Ambiental pela Universidade Federal de Lavras (UFLA) e atualmente pesquiso sobre poluição atmosf\'erica nas capitais estaduais da região sudeste do Brasil. Tenho interesse em desenvolver o doutorado no Programa de Pós-Graduação em Estatística do Instituto de Matemática e Estatística da Universidade de São Paulo.}                                 % optional, remove / comment the line if not wanted
+
+% bibliography adjustments (only useful if you make citations in your resume, or print a list of publications using BibTeX)
+%   to show numerical labels in the bibliography (default is to show no labels)
+%\makeatletter\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}\makeatother
+\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}
+%   to redefine the bibliography heading string ("Publications")
+%\renewcommand{\refname}{Articles}
+
+% bibliography with mutiple entries
+%\usepackage{multibib}
+%\newcites{book,misc}{{Books},{Others}}
+%\usepackage[alf,abnt-etal-cite=3,abnt-etal-list=3,abnt-url-package=url,abnt-emphasize=bf]{abntex2cite}
+\usepackage[natbib,style=authoryear]{biblatex}
+\addbibresource{RefbibArthurBoari.bib}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+	%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+	%-----       resume       ---------------------------------------------------------
+	\makecvtitle
+	
+	\section{Educação}
+	\cventry{2020--2023}{Mestrado}{Universidade Federal de Lavras -- UFLA}{Lavras, MG}{\textit{Engenharia Ambiental}}{}  % arguments 3 to 6 can be left empty
+	\cventry{2014--2020}{Graduação}{Universidade Federal de Lavras -- UFLA}{Lavras, MG}{\textit{Engenharia Ambiental e Sanitária}}{}
+	
+	\section{Dissertação de Mestrado}
+	\cvitem{Título}{Avaliação de tendência temporal em concentração de material particulado e ozônio em estações automáticas das capitais do Espírito Santo, Minas Gerais e São Paulo para o período de 2015 a 2019}
+	\cvitem{Orientador}{Marcelo Vieira-Filho (UFLA)}
+	%\cvitem{description}{Short thesis abstract}
+	
+	\section{Trabalho de Conclusão de Curso}
+	\cvitem{Título}{Métodos de Estimativa de Evapotranspiração Potencial no Cálculo do Balanço Hídrico Climatológico nas Mesorregiões Norte e Jequitinhonha de Minas Gerais}
+	\cvitem{Orientador}{Sílvia de Nazaré Monteiro Yanagi (UFLA)}
+	
+	\section{Experiências Profissionais}
+	\subsection{Pesquisa}
+	\cventry{2021--2022}{Bolsista de Pós-graduação -- Regime:
+		Dedicação exclusiva}{Fundação de Amparo à Pesquisa do Estado de Minas Gerais, FAPEMIG}{Lavras, MG}{}{}
+		
+	\cventry{2018--2019}{Bolsista -- Aprendizado Técnico}{Universidade Federal de Lavras -- UFLA}{Lavras, MG}{}{Avaliação, monitoramento e gestão dos sistemas de tratamento de água e esgoto. Sob orientação de Dyego Maradona Ataide de Freitas (Diretoria de Meio Ambiente - DMA)}
+	
+	\cventry{2017--2018}{Bolsista -- Aprendizado Técnico}{Universidade Federal de Lavras -- UFLA}{Lavras, MG}{}{Avaliação, monitoramento e gestão dos sistemas de tratamento de água e esgoto. Sob orientação de Dyego Maradona Ataide de Freitas (Diretoria de Meio Ambiente - DMA)}
+	
+	\cventry{2016--2017}{Bolsista -- Iniciação Científica Voluntária}{Universidade Federal de Lavras -- UFLA}{Lavras, MG}{}{Execução de parte do projeto "Caracterização dos resíduos sólidos da estação de tratamento de água da UFLA e incorporação na matriz de tijolos de solo-cimento", sob a orientação de Maria Luiza de Carvalho Andrade (DMA/UFLA).}
+	
+	\cventry{2016--2016}{Atividade Vivencial}{Universidade Federal de Lavras -- UFLA}{Lavras, MG}{}{Atividade vivencial na Estação de Tratamento de Água/UFLA e Diretoria de Meio Ambiente (DMA). Sob orientação de Dyego Maradona Ataide de Freitas (DMA)}
+	
+	\subsection{Extensão}
+	\cventry{2019--2022}{Membro efetivo}{Núcleo de Estudos em Poluição Urbana e Agroindustrial -- NEP UAI}{Lavras, MG}{}{No início de 2019, entrar no NEP UAI foi uma das minhas prioridades. Estava em um momento de transição de área de estudo, pois tinham se passado mais de três anos estudando qualidade de água e esgoto e estava na hora de fazer essa transição. Aqui pude aprender bastante sobre meteorologia, poluição atmosférica e gases de efeito estufa. Atuei em projetos de poluição sonora, poluição do ar e o "lockdown" em São Paulo e qualidade do ar na Região Metropolitana de Belo Horizonte. Também atuei em cargos de gestão do núcleo, como Conselho de Comunicação, Conselho Geral e Conselho de Projetos. Após três anos de trabalho junto ao núcleo, encerrei o vínculo para dedicar ao projeto de mestrado.}
+	
+	\subsection{Estágio}
+	\cventry{2020--2020}{Estágio Não-Obrigatório}{Consórcio Regional de Saneamento Básico -- CONSANE}{Lavras, MG}{}{Participei da elaboração do Plano Municipal de Gerenciamento de Resíduos Sólidos do município de Nepomuceno, MG; elaboração do projeto de implementação do programa Salta-Z da FUNASA em comunidades rurais de Lavras, MG.}
+	\cventry{2019--2019}{Estagiário em Engenharia Ambiental}{Consórcio Regional de Saneamento Básico -- CONSANE}{Lavras, MG}{}{Participei da elaboração do Plano Municipal de Saneamento Básico (PMSB) de Candeias, MG (levantamento de uso e ocupação do solo na fase de diagnóstico); do projeto de revitalização da horta e jardim do Centro Municipal de Educação Infantil (CEMEI) São José em Nepomuceno, MG; da proposta para o Edital 2019 de Gestão de Resíduos Sólidos Urbanos dos Ministério do Meio Ambiente em parceria com o Ministério da Justiça e Segurança Pública para recursos para os municípios de Lavras e Candeias. Participei, também, de fiscalizações ao aterro controlado de Luminárias, MG e da estação de transbordo de Lavras, MG. Participei do processo de outorga de poço tubular na comunidade rural de Santo Antônio do Cruzeiro, Nepomuceno, MG.}
+	
+	\subsection{Trabalho Voluntário}
+	\cventry{2018--2019}{Colaborador -- Membro Efetivo}{Engenheiros Sem Fronteiras - Núcleo Lavras -- ESF-NL}{Lavras, MG}{}{Atuei na frente de Saneamento Ambiental e Saúde Pública.}
+	\cventry{2018--2019}{Colaborador -- Membro da Diretoria Executiva Gestão
+		Pessoas}{Engenheiros Sem Fronteiras - Núcleo Lavras -- ESF-NL}{Lavras, MG}{}{Atuei como assessor de Gestão de Pessoas na gestão 2018 e como vice-secretário na gestão 2019; participei da elaboração e execução do Processo Seletivo 2019.}
+	
+	\section{Languages}
+	\cvitemwithcomment{Inglês}{B2 -- Intermediário}{Score: 563 (Março/2018)}
+	%\cvitemwithcomment{Language 2}{Skill level}{Comment}
+	%\cvitemwithcomment{Language 3}{Skill level}{Comment}
+	%\cvitemwithcomment{Language 4}{Skill level}{Comment}
+	
+	\section{Computer skills}
+	\cvitem{Editores de texto}{LaTeX, LibreOfice Writer e MS Word}{}{}
+	\cvitem{Linguagens de programação}{R (intermediário) e Python (básico)}{}{}
+	\cvitem{Planilha eletrônica}{LibreOfice Calc e MS Excel}{}{}
+	\cvitem{Softwares}{Notion, QGIS, RStudio, Ref-ET e Trello}{}{}
+	
+	%\section{Skill matrix}
+	%\cvitem{Skill matrix}{Alternatively, provide a skill matrix to show off your skills}
+	%% Skill matrix as an alternative to rate one's skills, computer or other. 
+	
+	%% Adjusts width of skill matrix columns. 
+	%% Usage \setcvskillcolumns[<width>][<factor>][<exp_width>]
+	%% <width>, <exp_width> should be lengths smaller than \textwidth, <factor> needs to be between 0 and 1.
+	%% Examples:
+	% \setcvskillcolumns[5em][][]%    adjust first column. Same as \setcvskillcolumns[5em]
+	% \setcvskillcolumns[][0.45][]%   adjust third (skill) column. Same as \setcvskillcolumns[][0.45]
+	% \setcvskillcolumns[][][\widthof{``Year''}]%     adjust fourth (years) column.
+	% \setcvskillcolumns[][0.45][\widthof{``Year''}]%
+	% \setcvskillcolumns[\widthof{``Languag''}][0.48][]
+	% \setcvskillcolumns[\widthof{``Languag''}]%
+	
+	%% Adjusts width of legend columns. Usage \setcvskilllegendcolumns[<width>][<factor>]
+	%% <factor> needs to be between 0 and 1. <width> should be a length smaller than \textwidth
+	%% Examples:
+	% \setcvskilllegendcolumns[][0.45]
+	% \setcvskilllegendcolumns[\widthof{``Legend''}][0.45]
+	% \setcvskilllegendcolumns[0ex][0.46]% this is usefull for the banking style
+	
+	%% Add a legend if you are using \cvskill{<1-5>} command or \cvskillentry
+	%% Usage \cvskilllegend[*][<post_padding>][<first_level>][<second_level>][<third_level>][<fourth_level>][<fifth_level>]{<name>}
+	% \cvskilllegend % insert default legend without lines
+	%\cvskilllegend*[1em]{}% adjust post spacing
+	% \cvskilllegend*{Legend}%  Alternatively add a description string
+	%% adjust the legend entries for other languages, here German
+	% \cvskilllegend[0.2em][Grundkenntnisse][Grundkenntnisse und eigene Erfahrung in Projekten][Umfangreiche Erfahrung in Projekten][Vertiefte Expertenkenntnisse][Experte\,/\,Spezialist]{Legende}
+	
+	%% Alternative legend style with the first three skill levels in one column
+	%% Usage \cvskillplainlegend[*][<post_padding>][<first_level>][<second_level>][<third_level>][<fourth_level>][<fifth_level>]{<name>}
+	% \setcvskilllegendcolumns[][0.6]%  works for classic, casual, banking
+	% \setcvskilllegendcolumns[][0.55]%  works better for oldstyle and fancy
+	% \cvskillplainlegend{}
+	% \cvskillplainlegend[0.2em][Grundkenntnisse][Grundkenntnisse und eigene Erfahrung in Projekten][Umfangreiche Erfahrung in Projekten][Vertiefte Expertenkenntnisse][Experte/Guru]{Legende}
+	
+	%% Add a head of the skill matrix table with descriptions.
+	%% Usage \cvskillhead[<post_padding>][<Level>][<Skill>][<Years>][<Comment>]%
+	%\cvskillhead[-0.1em]%   this inserts the standard legend in english and adjust padding
+	%% Adjust head of the skill matrix for other languages
+	% \cvskillhead[0.25em][Level][F\"ahigkeit][Jahre][Bemerkung]
+	
+	%% \cvskillentry[*][<post_padding>]{<skill_cathegory>}{<0-5>}{<skill_name>}{<years_of_experience>}{<comment>}% 
+	%% Example usages:
+	%\cvskillentry*{Language:}{3}{Python}{2}{I'm so experienced in Python and have realised a million projects. At least.}
+	%\cvskillentry{}{2}{Lilypond}{14}{So much sheet music! Man, I'm the best!}
+	%\cvskillentry{}{3}{\LaTeX}{14}{Clearly I rock at \LaTeX}
+	%\cvskillentry*{OS:}{3}{Linux}{2}{I only use Archlinux btw}% notice the use of the starred command and the optional 
+	%\cvskillentry*[1em]{Methods}{4}{SCRUM}{8}{SCRUM master for 5 years}
+	%% \cvskill{<0-5>} command
+	% \cvitem{\textbackslash{cvskill}:}{Skills can be visually expressed by the \textbackslash{cvskill} command, e.g. \cvskill{2}}
+	
+	%section{Interests}
+	%\cvitem{hobby 1}{Description}
+	%\cvitem{hobby 2}{Description}
+	%\cvitem{hobby 3}{Description}
+	
+	%\section{Extra 1}
+	%\cvlistitem{Item 1}
+	%\cvlistitem{Item 2}
+	%\cvlistitem{Item 3. This item is particularly long and therefore normally spans over several lines. Did you notice the indentation when the line wraps?}
+	
+	%\section{Extra 2}
+	%\cvlistdoubleitem{Item 1}{Item 4}
+	%\cvlistdoubleitem{Item 2}{Item 5\cite{book2}}
+	%\cvlistdoubleitem{Item 3}{Item 6. Like item 3 in the single column list before, this item is particularly long to wrap over several lines.}
+	
+	%\section{References}
+	%\begin{cvcolumns}
+	%	\cvcolumn{Category 1}{\begin{itemize}\item Person 1\item Person 2\item Person 3\end{itemize}}
+	%	\cvcolumn{Category 2}{Amongst others:\begin{itemize}\item Person 1, and\item Person 2\end{itemize}(more upon request)}
+	%	\cvcolumn[0.5]{All the rest \& some more}{\textit{That} person, and \textbf{those} also (all available upon request).}
+	%\end{cvcolumns}
+	
+	
+	
+	% Publications from a BibTeX file without multibib
+	%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
+	%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
+	\section{Publicações}
+	\subsection*{Artigos}
+\textbf{1.}	ROSSE, VINICIUS POSSATO ; PEREIRA, JAQUELINE NATIELE ; BOARI, ARTHUR ; COSTA, GABRIEL VINICIUS ; RIBEIRO, JOÃO PEDRO COLOMBO ; VIEIRA-FILHO, MARCELO . São Paulo's atmospheric pollution reduction and its social isolation effect, Brazil. \textbf{Air Quality, Atmosphere \& Health}, v. 7, p. 45-56, 2020. doi: 10.1007/s11869-020-00959-8
+\\ \\
+\textbf{2.} POSSATO, V. R. ; PEREIRA, J. N. ; BOARI, A. ; COSTA, G. ; RIBEIRO, J. P. C. ; SILVA FILHO, M. V. . Atmospheric Pollution Reduction in São Paulo City and the Social Isolation Effect. Research Square, 2020 (Preprint). doi: 10.21203/rs.3.rs-34662/v1
+
+\subsection*{Livros publicados/organizados ou edições}
+
+\textbf{1.} NÚCLEO DE ESTUDOS EM POLUIÇÃO URBANA E AGROINDUSTRIAL (BOARI, A.; PERRUCINI, G. R. S. ; CARVALHO, H. L. ; CARDOSO, J. A. ; CORINTO, L. ; BARROS, L. L. ; Ferreira, N. C. ; SILVA FILHO, M. V.). Poluição Sonora: Conceitos e Práticas. 1. ed. Novas Edições Acadêmicas, 2020. 52p .
+
+	\section*{Publicações em congressos}
+	\subsection*{Trabalhos completos publicados em anais de congressos}
+	
+	\textbf{1.} BOARI, A.; SILVA FILHO, M. V. . CRESCIMENTO DA CONCENTRAÇÃO DE MATERIAIS PARTICULADOS E OZÔNIO EM CAPITAIS BRASILEIRAS. In: 19º Congresso Nacional de Meio Ambiente de Poços de Caldas, 2022, Poços de Caldas, MG. Anais 19º Congresso Nacional de Meio Ambiente de Poços de Caldas 2022, 2022. v. 14.
+	
+	\subsection*{Resumos expandidos publicados em anais de congressos}
+	
+	\textbf{1.} ALMEIDA, L. R. ; BARROS, L. L. ; BOARI, A. ; PEREIRA, J. N. ; MATTOS, G. H. ; SILVA FILHO, M. V. . TENDÊNCIAS DA QUALIDADE DO AR NA REGIÃO METROPOLITANA DE BELO HORIZONTE NO PERÍODO DE 2015-2019. In: XXV Encontro Latino Americano de Iniciação Científica (online), 2021. XXV Encontro Latino Americano de Iniciação Científica, 2021.
+	\\\\
+	\textbf{2.}SOUZA, JEAN MICHEL PEREIRA ; BOARI, ARTHUR ; VITOR, DANIELA APARECIDA ; FREITAS, DYEGO MARADONA ATAIDE DE ; FIA, RONALDO . AVALIAÇÃO DA ÁGUA BRUTA E EFICIÊNCIA DE UMA ETA EM ESCALA REAL. In: IX SBEA + XV ENEEAmb + III FLES, 2017, Belo Horizonte. Blucher Engineering Proceedings, 2017. p. 709.
+	\\\\
+	\textbf{3.}VITOR, D. A. ; SOUZA, J. M. P. ; BOARI, A. ; FREITAS, D. M. A. ; FIA, R. . Avaliação e classificação da água bruta de abastecimento da UFLA. In: Congresso ABES Fenasan 2017, 2017, São Paulo, SP. Água: abastecimento, tratamento e distribuição, 2017.
+	
+	\subsection*{Resumos publicados em anais de congressos}
+	
+	
+	\textbf{1.} COSTA, J. F. ; BOARI, A. ; YANAGI, S. N. M. . IDENTIFICAÇÃO DE TENDÊNCIAS NO CONFORTO TÉRMICO HUMANO NO VALE DO JEQUITINHONHA E NORTE DE MINAS GERAIS. In: XXXV Congresso de Iniciação Científica da UFLA, 2022, Lavras. Anais do XXXV Congresso de Iniciação Científica da UFLA, 2022.
+	\\\\
+	\textbf{2.} BOARI, A.; SILVA FILHO, M. V. . Tendência na qualidade do ar de Belo Horizonte e Vitória para 2015 a 2019. In: XXX Congresso de Pós-graduação, 2021, LAVRAS. XXX Congresso de Pós-graduação, 2021.
+	\\\\
+	\textbf{3.} PEREIRA, J. N. ; BARROS, L. L. ; POSSATO, V. R. ; MATTOS, G. H. ; BOARI, A. ; SILVA FILHO, M. V. . Variabilidade sazonal da qualidade do ar em Belo Horizonte, Minas Gerais. In: XXXIII Congresso de Iniciação Científica da UFLA (online), 2020, Lavras. XXXIII Congresso de Iniciação Científica da UFLA, 2020.
+	\\\\
+	\textbf{4.} Ferreira, N. C. ; BARROS, L. L. ; PERRUCINI, G. R. S. ; BOARI, A. ; PEREIRA, J. N. ; SILVA FILHO, M. V. . Avaliação dos impactos da poluição sonora na comunidade acadêmica da Universidade Federal de Lavras. In: XXXII Congresso de Iniciação Científica da UFLA, 2019, Lavras. Inic. Científica - Engenharia Ambiental, 2019.
+	\\\\
+	\textbf{5.} VITOR, D. A. ; LIMA, N. ; BOARI, A. ; PEREIRA, J. M. ; FREITAS, D. M. A. ; FIA, R. . Avaliação da remoção de fósforo na estação de tratamento de esgoto - UFLA. In: XXX Congresso de Iniciação Científica da UFLA, 2017, Lavras. Inic. Científica - Engenharia Ambiental, 2017.
+	\\\\
+	\textbf{6.} HONORATO, J. S. ; SOUZA, J. M. P. ; BOARI, A. ; LIMA, N. ; VITOR, D. A. ; FREITAS, D. M. A. . Avaliação da remoção de tensoativos em estação de tratamento de esgoto. In: XXX Congresso de Iniciação Científica da UFLA, 2017, Lavras. Inic. Científica - Engenharia Ambiental, 2017.
+	\\\\
+	\textbf{7.} SOUZA, J. M. P. ; BOARI, A. ; LIMA, N. ; VITOR, D. A. ; FREITAS, D. M. A. ; ANDRADE, M. L. C. . Eficiência do sistema de filtração rápida da Estação de Tratamento de Água da UFLA. In: XXX Congresso de Iniciação Científica da UFLA, 2017, Lavras. Inic. Científica - Engenharia Ambiental, 2017.
+	\\\\
+	\textbf{8.} LIMA, N. ; VITOR, D. A. ; SOUZA, J. M. P. ; BOARI, A. ; FREITAS, D. M. A. ; FIA, R. . Estudo da remoção de sólidos no tratamento de água convencional. In: XXX Congresso de Iniciação Científica da UFLA, 2017, Lavras. Inic. Científica - Engenharia Ambiental, 2017.
+	\\\\
+	\textbf{9.} BOARI, A.; PEREIRA, J. M. ; VITOR, D. A. ; LIMA, N. ; FREITAS, D. M. A. ; ANDRADE, M. L. C. . Estudo dos sistemas de floculação e decantação de uma estação de tratamento de água. In: XXX Congresso de Iniciação Científica da UFLA, 2017, Lavras. Inic. Científica - Engenharia Ambiental, 2017.
+	\\\\
+	\textbf{10.} SOUZA, J. M. P. ; BOARI, A. ; LIMA, N. ; FLAUSINO, M. B. ; FREITAS, D. M. A. ; FIA, R. . A Chuva e Sua Influência na Qualidade da Água da Barragem da UFLA. In: XXIX Congresso de Iniciação Científica da UFLA, 2016, Lavras. Inic. Científica - Engenharia Ambiental, 2016.
+	\\\\
+	\textbf{11.} 	BOARI, A.; VITOR, D. A. ; SOUZA, J. M. P. ; LIMA, N. ; FREITAS, D. M. A. ; FIA, R. . Eficiência da Remoção de Cor, Turbidez, e Flutuações de pH na Estação de Tratamento de Água da Universidade Federal de Lavras. In: XXIX Congresso de Iniciação Científica da UFLA, 2016, Lavras. Inic. Científica - Engenharia Ambiental, 2016.
+	\\\\
+	\textbf{12.} LIMA, N. ; FLAUSINO, M. B. ; BOARI, A. ; VITOR, D. A. ; FREITAS, D. M. A. ; FIA, R. . Identificação de classe de qualidade da água das lagoas da UFLA. In: XXIX Congresso de Iniciação Científica da UFLA, 2016, Lavras. Inic. Científica - Engenharia Ambiental, 2016.
+	\\\\
+	\textbf{13.} VITOR, D. A. ; SOUZA, J. M. P. ; FLAUSINO, M. B. ; BOARI, A. ; FREITAS, D. M. A. ; FIA, R. . Identificação e avaliação da eficiência da remoção do ferro e manganês na água de abastecimento da Universidade Federal de Lavras. In: XXIX Congresso de Iniciação Científica da UFLA, 2016, Lavras. Inic. Científica - Engenharia Ambiental, 2016.
+	
+	
+	
+	
+	\clearpage
+\end{document}
+
+
+%% end of file `template.tex'.

@@ -1,0 +1,54 @@
+---
+title: "XXXI Congresso da Pós-Graduação - References"
+output: html_document
+---
+```{=html}
+<style>
+body {
+  color: black;
+  font-family: Times;
+  font-size: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+pre {
+  background-color: lightgreen;
+}
+#TOC {
+  color: #A8CF45;
+  font-family: Times;
+  font-size: 14px;
+  border-color: black;
+}
+#header {
+  color: #00943E;
+}
+</style>
+```
+
+<br>
+<br>
+
+* ALVIM, D. S. et al. Main ozone-forming VOCs in the city of Sao Paulo: observations, modelling and impacts. **Air Quality, Atmosphere & Health**, v. 10, n. 4, p. 421–435, may 2017. ISSN 1873-9318. Disponível em: ⟨http://link.springer.com/10.1007/s11869-016-0429-9⟩.
+
+* ALYOUSIFI, Y. et al. Trend analysis and change point detection of air pollution index in Malaysia. **International Journal of Environmental Science and Technology**, Springer Berlin Heidelberg, n. 0123456789, nov 2021. ISSN 1735-1472.
+
+* ANDERSON, T. W.; DARLING, D. A. Asymptotic Theory of Certain "Goodness of Fit" Criteria Based on Stochastic Processes. **The Annals of Mathematical Statistics**, Institute of Mathematical Statistics, v. 23, n. 2, p.
+193 – 212, 1952. Disponível em: ⟨https://doi.org/10.1214/aoms/1177729437⟩.
+
+* BERINGUI, K. et al. Avaliação da concentração e composição inorgânica do material particulado coletado no estado do Rio de Janeiro. **Química Nova**, 2021. ISSN 01004042. Disponível em: ⟨http://quimicanova.sbq.org.br/audiencia\ pdf.asp?aid2=9275&nomeArquivo=RV2020-0459.pdf⟩.
+
+* BRASIL. Ministério do Meio Ambiente. Conselho Nacional do Meio Ambiente (CONAMA). Resolução nº 491, de 19 de novembro de 2018. dispõe sobre padrões de qualidade do ar. **Diário Oficial [da] República Federativa do Brasil — 1**, Brasília, DF, 2018. ISSN 1677-7042. Disponível em: ⟨https://www.in.gov.br/materia/-/asset\ publisher/Kujrw0TZC2Mb/content/id/51058895⟩. Acesso em: 02 mar. 2022.
+
+* LENZI, E.; FAVERO, L. O. B. **Introdução à Química da Atmosfera**: Ciência, vida e sobrevivência. 2. ed. Barueri, SP: Grupo Editorial Nacional (GEN), 2019. ISBN 9788521634843. Disponível em: ⟨https://www.grupogen.com.br/exatas/quimica/introducao-a-quimica-da-atmosfera-ciencia-vida-e-sobrevivencia⟩. Acesso em: 17 fev. 2022.
+
+* SAO PAULO (Estado). Secretaria de Infraestrutura e Meio Ambiente. Companhia Ambiental do Estado de São Paulo (CETESB). **Qualidade do ar no estado de São Paulo 2020**. São Paulo, 2021. 10 p. Disponível em: ⟨https://cetesb.sp.gov.br/ar/wp-content/uploads/sites/28/2021/05/Apendice-2-Qualidade-do-Ar-2020.pdf⟩. Acesso em: 01 mar. 2022.
+
+* SEINFELD, J. H.; PANDIS, S. N. **Atmospheric chemistry and physics**: from air pollution to climate change. 2. ed. Hoboken, N.J: John Wiley & Sons, 2006. 1203 p. ISBN 978-0471720188.
+
+* SEN, P. K. Estimates of the Regression Coefficient Based on Kendall's Tau. **Journal of the American Statistical Association**, v. 63, n. 324, p. 1379, dec 1968. ISSN 01621459. Disponível em: ⟨https://www.pacificclimate.org/∼wernera/zyp/Sen%201968%20JASA.pdf⟩. Acesso em: 28 fev. 2022.
+
+* WORLD HEALTH ORGANIZATION (WHO). **WHO global air quality guidelines**: particulate matter (PM2.5 andPM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide. Geneva, Switzerland: World Health Organization, 2021. xxi, 273 p.
+
+
+&copy; 2022 Arthur Boari. All rights reserved.

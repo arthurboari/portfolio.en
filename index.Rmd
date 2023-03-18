@@ -1,0 +1,53 @@
+---
+title: "Sobre | Arthur Boari"
+output:
+  html_document
+---
+
+```{=html}
+<style>
+  .title {
+    visibility: hidden;
+    position: relative;
+}
+body {
+  color: lightyellow;
+  font-family: Times;
+  font-size: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+pre {
+  background-color: lightgreen;
+}
+#TOC {
+  color: #A8CF45;
+  font-family: Times;
+  font-size: 14px;
+  border-color: black;
+}
+#header {
+  color: #00943E;
+}
+</style>
+```
+```{r fig.align='center',echo=FALSE,out.width='60%',fig.cap='Arquivo pessoal'}
+knitr::include_graphics(path = "images/Untitled design (2).png")
+```
+
+# Overview
+
+|       The author was born in Lavras City, Minas Gerais, Brazil, in 1995. His native language is Brazilian Portuguese, but speaks, writes, and reads in English too. Arthur cared about the environment as a child - a topic he would study years later to become an environmental engineer. The following text aims to give the reader an overview of his career so far.
+
+|       Currently, **Arthur Boari** is developing his master's research in the area of air pollution --- investigating trends in time series of Particulate Matter and Tropospheric Ozone from capital cities in the southeastern region of Brazil. He is linked to the [Post-graduate Program in Environmental Engineering](https://sites.google.com/ufla.br/ppgeamb/p%C3%A1gina-inicial?authuser=0) at the Universidade Federal de Lavras (UFLA), where [Prof. Dr. Marcelo Vieira-Filho](http://lattes.cnpq.br/5059318976988668) supervises him. He was the only entrant in the research line Climate Change, Energy and Atmospheric Pollution in the second semester of 2020.
+
+|       During his Undergraduate degree (2014-2020) in Environmental and Sanitary Engineering (UFLA) he developed several activities, to be discussed:
+
+* His Final Paper addressed the use of four evapotranspiration estimation methods (FAO56-Penman-Monteith, Hargreaves & Samani, Makkink, and Thornthwaite) in the climatological water balance methodology (Thornthwaite & Matter) for historical series of meteorological data from eight stations in the northeastern part of the state of Minas Gerais. This area is characterized by the Aw and Cwa (Köppen) classifications. All the work was oriented by [Prof. Dr. Sílvia de Nazaré Monteiro Yanagi (UFLA)](http://lattes.cnpq.br/3943657653311716).
+
+* In 2019 he joined the [Núcleo de Estudos em Poluição Urbana e Agroindustrial (NEP UAI)](https://sites.google.com/ufla.br/nepuai) where he had the opportunity to start developing projects in the area of atmospheric sciences, such as noise pollution and air pollution. During the three years he was there, he passed through several positions where he developed communication, people management, and project management skills. In March 2022 he finished his activities with them.
+
+* Between 2016 and 2019 he worked in water and sewage analysis laboratories from treatment plants located on the UFLA campus. During this period he was linked to the Environmental Directorate (DMA/UFLA) as an experiential activity (2016), voluntary scientific initiation (2016-2017), and technical learning (2017-2019). Among the analyses performed are physical analyses (pH, conductivity, color, and turbidity), chemical analyses (Total Kjeldahl Nitrogen, Biochemical/Chemical Oxygen Demand, Manganese, Total Iron, Total Phosphorus, among others), and biological analyses (Total and Thermotolerant Coliforms).
+<br>
+<br>
+

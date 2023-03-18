@@ -1,0 +1,3 @@
+[submodule "moderncv"]
+	path = moderncv
+	url = https://gitlab.com/cgaultier/moderncv.git

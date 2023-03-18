@@ -1,0 +1,25 @@
+name: "Arthur Boari Home"
+navbar:
+  title: "Arthur Boari"
+  type: default
+  left:
+    - text: "Códigos"
+      icon: fa-code
+      menu:
+        - text: "R"
+        - text: "Basic ggplot2 maps + geobr"
+          href: Simple_maps.html
+        - text: "Dashboards"
+        - text: "Taylor Swift Spotify Data"
+          href: "TSdashboard.html"
+  right:
+    - text: "Entre em Contato"
+      icon: fa-envelope
+      href: mailto:eng.arthurboari@gmail.com
+    - text: "Links"
+      icon: fa-link
+      href: https://linktr.ee/aboari
+output_dir: "docs"
+output:
+  html_document:
+    theme: darkly

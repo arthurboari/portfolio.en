@@ -1,0 +1,42 @@
+---
+title: "About"
+output: html_document
+---
+<style>
+body {
+  color: orange;
+  background-color: lightblue;
+  font-family: Times;
+  font-size: 20px
+}
+pre {
+  background-color: lightgreen;
+}
+#TOC {
+  color: red;
+  font-family: Times;
+  font-size: 14px;
+  border-color: black;
+}
+#header {
+  color: orange;
+}
+</style>
+
+![](images/Photo.jpg){width=20%}
+
+  ARTHUR BOARI é:
+  
+  Mestrando em [Engenharia Ambiental](https://sites.google.com/ufla.br/ppgeamb/p%C3%A1gina-inicial?authuser=0), pela Universidade Federal de Lavras (UFLA), na linha de pesquisa Mudanças Climáticas, Energia e Poluição Atmosférica. Graduou, em 2020, no curso de Engenharia Ambiental e Sanitária, pela UFLA.
+  
+  Iniciou o aprendizado de R, em 2019, através de curso introdutório ministrado por membros do Núcleo de Estudos em Poluição Urbana e Agroindustrial ([NEP UAI](https://sites.google.com/ufla.br/nepuai)). Iniciou a aplicação dos conhecimentos na disciplina GAM 124 - Modelagem de Processos Ambientais, ministrada pelo Dr. Marcelo Vieira-Filho (atual orientador de mestrado) bem como em atividades de pesquisas enquanto membro do NEP UAI.
+  
+  Para mais informações, consulte os meus perfis:
+    
+[Lattes](http://lattes.cnpq.br/7113151378838886)
+    
+[LinkedIn](https://www.linkedin.com/in/arthurboari/)
+    
+[ORCID](https://www.researchgate.net/profile/Arthur-Boari)
+    
+Deseja entrar em contato via e-mail? [Clique aqui!](mailto:arthur1995boari@gmail.com)

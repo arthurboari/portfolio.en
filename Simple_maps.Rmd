@@ -1,0 +1,250 @@
+---
+title: "Mapas com *geobr* e *ggplot2*"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+---
+
+```{=html}
+<style>
+  .title {
+    visibility: visible;
+    position: relative;
+}
+body {
+  color: lightyellow;
+  font-family: Times;
+  font-size: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+pre {
+  background-color: lightgreen;
+}
+#TOC {
+  color: #A8CF45;
+  font-family: Times;
+  font-size: 14px;
+  border-color: black;
+}
+#header {
+  color: #00943E;
+}
+</style>
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = FALSE,cache = TRUE,comment = "")
+```
+
+
+The following content was prepared as a part of an assignment for the PEA-504 - Estágio em Docência (*"Internship in Teaching"*) course and presented to undergrad students enrolled in the GAM114 - Modelagem de Processos Ambientais (*"Environmental Process Modeling"*) course.
+
+The assignment prepared and shared below aims to introduce the *ggplot2* package to the students as a way of plotting simple maps in R. For that we use three packages, as described below:
+
+- *ggplot2*;
+- *geobr:* a package that provides spatial data sets of the Brazilian territory;
+- *ggspatial:* for plotting basic map items.
+
+# Loading the packages
+***
+```{r loading the packages}
+library(geobr)
+library(ggplot2)
+library(ggspatial)
+```
+
+# Loading data points
+***
+As we're plotting the location of air quality monitoring stations, we need to load the data that contains their coordinates. These stations are located in the Espírito Santo state capital, Vitória.
+
+```{r loading the csv}
+Stations <- read.csv2(
+  file = "Arquivos/Maps/Coordenadas SIRGAS 2000 Completo.csv",
+  fileEncoding = "UTF-8")
+```
+```{r csv head, echo=FALSE}
+knitr::kable(Stations,align = "ccc")
+```
+
+
+You can obtain this file <a href="Arquivos/Maps/Coordenadas SIRGAS 2000 Completo.csv" download>here</a>.
+
+# The *geobr* package
+***
+As stated before, this package is useful to download spatial data sets for the Brazilian country.
+
+## The `list_geobr()` function
+***
+This useful function returns the relation between the packages' function, what it returns, the years of available data and the source.
+
+```{r list_geobr}
+list_geobr <- list_geobr()
+knitr::kable(head(list_geobr))
+```
+## The `lookup_muni()` function
+***
+This useful one helps us track the city's ID (`code_muni`). Let's search for Lavras' ID:
+
+```{r lookup_muni}
+lookup_muni(name_muni = "LAVRAS")
+```
+
+# Downloading the *geobr* data sets
+***
+## Country data set
+***
+Every time you download a *geobr* data set is useful to plot it to assess if it's the desired one.
+
+```{r estados brasil}
+Brazil <- read_country(year = 2020, showProgress = FALSE)
+ggplot() + geom_sf(data = Brazil)
+```
+<br>
+As we can see, the upper code returned all the 26 states and the Federal District. But sometimes all you desire is the country's contour lines...
+
+```{r contorno brasil}
+Brazil.contour <- read_country(year = 2010, showProgress = FALSE)
+ggplot() + geom_sf(data = Brazil.contour)
+```
+<br>
+To achieve the desired result the solution is changing the *year* argument.
+
+By the way, the first result could be achieved by the following code:
+
+```{r estados brasil 2}
+Brazil.states <- read_state(code_state = "all", year = 2020, showProgress = FALSE)
+ggplot() + geom_sf(data = Brazil.states)
+```
+<br>
+
+## State data set
+***
+When it comes to state spatial data the go-to function is `read_state()`.
+
+```{r state}
+MG <- read_state(code_state = 31, showProgress = FALSE)
+ggplot() + geom_sf(data = MG)
+```
+<br>
+This function just obtains a subset of `read_country()`'s output. So, to obtain all the municipalities, head over to `read_municipality()` just assigning the state code as the municipality code:
+
+```{r state mg}
+MG.mun <- read_municipality(code_muni = 31, showProgress = FALSE)
+ggplot() + geom_sf(data = MG.mun)
+```
+<br>
+
+So, how can I figure out the state codes? Well, I've plotted out a map just for you!
+
+```{r state codes}
+ggplot(data = Brazil) + geom_sf() + geom_sf_text(aes(label = code_state)) + labs(x = "",y = "")
+```
+
+The above code shows how the `geom_sf_text()` plots *tags* in maps. Below you can see the possibilities in the `Brazil` *sf* object.
+
+```{r kable sf, include=FALSE}
+knitr::kable(head(Brazil))
+```
+<br>
+Note that the `geom` column stores the geometries and how they should be plotted. This column has `r class(Brazil$geom)` class. You can find more information about this type of data [here](https://r-spatial.github.io/sf/articles/sf1.html).
+
+# Maping the air quality stations location
+***
+
+## The Base plot
+***
+These stations are located in four cities: Vitória, Cariacica, Vila Velha and Serra. We need to download them and add them in one object, as done below:
+
+```{r RMV, message=FALSE}
+Vitoria <- read_municipality(code_muni = 3205309,showProgress = FALSE)
+Serra <- read_municipality(code_muni = 3205002,showProgress = FALSE)
+Cariacica <- read_municipality(code_muni = 3201308,showProgress = FALSE)
+VilaVelha <- read_municipality(code_muni = 3205200,showProgress = FALSE)
+RMV <- rbind(Vitoria,Serra,Cariacica,VilaVelha)
+```
+The `code_muni` value was obtained through the `lookup_muni` function. Please refer back to [this page](https://arthurboari.github.io/arthurboari/Simple_maps.html#The_lookup_muni()_function) if you want to understand how to do so.
+
+Let's view our `RMV` object content:
+
+```{r RMV kable}
+knitr::kable(RMV)
+ggplot() + geom_sf(data = RMV)
+```
+
+It seems we encountered an error with out plot, *but* we did not. What happens is that Vitória contains islands attached to its territory. If we want to plot only the continental portion, we can restrain the x-axis width.
+
+```{r RMV restrained}
+ggplot() + geom_sf(data = RMV) + coord_sf(xlim=c(-40.61,-40.18))
+```
+
+Now that our base plot is built, we can add another layers, the stations and make the plot more personalized.
+
+## Adding a urban area layer
+***
+We can obtain it through the geobr package, see the code below:
+
+```{r geobr urban area}
+AreaUrbana <- read_urban_area(showProgress = FALSE)
+VitoriaAU <- subset(AreaUrbana,
+                  AreaUrbana$code_muni==3205309)
+ggplot() + 
+  geom_sf(data = VitoriaAU,fill = "lightblue") +
+  geom_sf(data = RMV, fill = "transparent") +
+  coord_sf(xlim=c(-40.61,-40.18))
+```
+<br>
+We can tweak the map by adding the `fill`argument inside the `geom_sf` function so the `sf` objects can be distinguished. The `color`argument changes the line colour, that's not what we want to do here.
+
+## Time to plot the stations
+***
+The ggplot2 package allows us to build the plots in layers, so the code above will be stored as `base.plot` and we'll add the layers in the codes.
+
+```{r RMV restrained base object}
+base.plot <- ggplot() + 
+  geom_sf(data = VitoriaAU,fill = "lightblue") +
+  geom_sf(data = RMV, fill = "transparent") +
+  coord_sf(xlim=c(-40.61,-40.18))
+```
+<br>
+Now we can add the points using the `geom_point`function.
+
+```{r base.plot point}
+base.plot2 <- base.plot + geom_point(data = Stations,
+                       aes(x = long,
+                           y = lat,
+                           col = Station)) +
+  geom_sf_text(data = RMV,
+               aes(label = name_muni)) +
+  ylim(c(-20.52,-20))
+base.plot
+```
+<br>
+In the code above we added the points by using the *Stations* object created above by plotting the longitude on the x-axis and latitude in the y-axis. The `col`argument allows the points do be coloured by the name of each station - note that the legend is automatically made. The other two layers provide the plotting of each city's name by assigning the `name_muni` vector on the `label` argument, and the controlling of the y-axis length by the `ylim` function.
+
+There are some tweaks left to be done. We need to change the plot background, the axis titles, the legend title, add a legend for the urban area, add the North arrow and scale bar.
+
+# Adding the North arrow and the scale bar
+***
+The North arrow is provided by the `ggspatial` package, alongside with the scale bar. The `theme_*` function provide different styling to the plot. I decided to locate the North arrow by the `top left - tl` portion of the map, while the scale bar is located on the `bottom right - br` portion.
+```{r final plot}
+base.plot2 + theme_minimal() +
+  annotation_north_arrow(
+    style = north_arrow_fancy_orienteering,
+    location = "tl") +
+  annotation_scale(location = "br") + 
+  labs(x = "", y = "")
+```
+<br>
+
+***
+
+This code was last compiled at `r Sys.time()`
+
+***
+
+&copy; 2022 Arthur Boari. All rights reserved.

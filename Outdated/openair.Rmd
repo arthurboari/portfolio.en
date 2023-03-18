@@ -1,0 +1,94 @@
+---
+title: "Learning R: openair"
+author: "Arthur Boari"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 4
+    #code_folding: hide
+---
+2022 | 1 | 13 Last compiled: `r Sys.Date()`
+
+Pacote *openair*: Tools for the Analysis of Air Pollution Data
+
+Esse pacote é específico para análise de dados de qualidade do ar.
+
+# Obtendo dados de qualidade do ar
+
+2022 | 1 | 13 Last compiled: `r Sys.Date()`
+
+Tutorial: [dados de qualidade do ar de Minas Gerais - FEAM](https://www.instagram.com/tv/CQGx-5cHv2Y/?utm_source=ig_web_copy_link)
+
+# Importando dados de qualidade do ar
+
+2022 | 1 | 13 Last compiled: `r Sys.Date()`
+
+```{r importando, echo=TRUE,include=FALSE}
+dado<-read.csv2(file = "Arquivos/openair/DelAma2019.csv")
+library(openair)
+```
+
+Trabalharemos com dados de qualidade do ar para a estação Delegacia Amazonas (Belo Horizonte/MG) para o ano de 2019:
+
+```{r print dados qualidade do ar, echo=FALSE}
+head(dado)
+str(dado)
+```
+
+Para trabalhar com esse pacote, o nome da coluna de data-hora <u>deve</u> ser chamada **date**.
+
+A coluna *date* está como caractere, portanto, precisamos transformar para data-hora.
+
+```{r transformação data-hora}
+dado$date<-as.POSIXct(dado$date, format="%d/%m/%Y %H:%M")
+```
+```{r data-hora transformada, echo=FALSE}
+head(dado)
+str(dado)
+```
+
+Veja como agora a coluna *date* está escrita, o R reconhece como data-hora! Estamos prontos para trabalhar com funções do pacote.
+
+# Função *summaryPlot*
+
+2022 | 1 | 13 Last compiled: `r Sys.Date()`
+
+```{r summaryPlot}
+openair::summaryPlot(mydata = dado,
+                     date.breaks = 12,
+                     period = "months")
+```
+
+O argumento *date.breaks* controla a divisão do eixo x, enquanto o argumento *period* define a divisão do conjunto para plotagem da análise de completude. O *default* para esse argumento é *years*, porém, como estamos trabalhando apenas com um ano de dados, escolhemos *months* - sempre no plural - para uma análise mais detalhada.
+
+O gráfico é dividido em duas colunas: a primeira, com a estatística e completude dos dados, e a segunda, com o histograma das variáveis. Casa deseje poluentes específicos, faça a indexação diretamente no argumento *mydata*.
+
+Em uma rápida análise na segunda coluna do gráfico, podemos verificar que não seguem uma distribuição normal, porém devemos sempre verificar a estatística.
+
+## Teste de Anderson-Darling
+
+O teste de Anderson-Darling é semelhante ao teste de Shapiro-Wilk. Ambos verificam a normalidade dos dados. Vale ressaltar que a função do Shapiro-Wild (*stats::shapiro.test()*) foi traduzida do Fortran e possui a limitação de análise de até 5000 dados.
+
+2022 | 1 | 13 Last compiled: `r Sys.Date()`
+
+```{r anderson-darling}
+library(nortest)
+#H0 = distribuição normal: p > 0.05 (Hipótese nula)
+#Ha = distribuição não normal: p <= 0.05 (Hipótese alternativa)
+nortest::ad.test(dado$PM10) #não é normal
+nortest::ad.test(dado$NO2) #não é normal
+nortest::ad.test(dado$O3) #não é normal
+nortest::ad.test(dado$SO2) #não é normal
+nortest::ad.test(dado$PM25) #não é normal
+nortest::ad.test(dado$CO) #não é normal
+```
+
+
+# Citando o pacote
+```{r citação}
+citation(package = "openair",auto = F)
+```
+

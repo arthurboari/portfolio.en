@@ -1,0 +1,91 @@
+---
+title: "19º Congresso Nacional de Meio Ambiente de Poços de Caldas - References"
+output: html_document
+---
+```{=html}
+<style>
+body {
+  color: black;
+  font-family: Times;
+  font-size: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+pre {
+  background-color: lightgreen;
+}
+#TOC {
+  color: #A8CF45;
+  font-family: Times;
+  font-size: 14px;
+  border-color: black;
+}
+#header {
+  color: #00943E;
+}
+</style>
+```
+
+<br>
+<br>
+
+* ALYOUSIFI, Y. et al. Trend analysis and change point detection of air pollution index in
+Malaysia. **International Journal Of Environmental Science And Technology**, [S.L.], v. 19, n.
+8, p. 7679-7700, 21 nov. 2021. Springer Science and Business Media LLC. [DOI](http://dx.doi.org/10.1007/s13762-021-03672-w).
+
+* ANDREÃO, Willian Lemker; ALBUQUERQUE, Taciana Toledo de Almeida. Avoidable
+mortality by implementing more restrictive fine particles standards in Brazil: an estimation using
+satellite surface data. **Environmental Research**, [S.L.], v. 192, n. 110288, p. 1-11, jan. 2021.
+Elsevier BV. [DOI](http://dx.doi.org/10.1016/j.envres.2020.110288).
+
+* CARSLAW, D. C.; ROPKINS, K. openair - an r package for air quality data analysis. **Environmental Modelling & Software**, v. 27-28, n. 0, p. 52-61, 2012. ISSN 1364-8152.
+
+* COEN, M. C.; BIGI, A. **MannKendallTrends**: MannKendall trends for geophysical time
+series. [S.l.], 2021. R package version 1.1.0. Disponível em: [GitHub](https://mannkendall.github.io/R/>).
+
+* Conselho Nacional do Meio Ambiente (CONAMA). Resolução nº 491, de 19 de novembro de 2018. **Dispõe sobre padrões de qualidade do ar. Diário Oficial [da] República Federativa do Brasil** - 1, Brasília, DF, 2018. ISSN 1677-7042. Disponível em: [link](https://www.in.gov.br/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/51058895). Acesso
+em: 02 mar. 2022.
+
+* Companhia Ambiental do Estado de São Paulo (CETESB). **QUALAR**: Sistema de informações
+da qualidade do ar. 2022. Disponível em: [link](https://qualar.cetesb.sp.gov.br/qualar/home.do).
+Acesso em: 01 mar. 2022
+
+* Fundação Estadual do Meio Ambiente (FEAM). **Informações Complementares das Estações**. 2020. Disponível em: [link](http://www.feam.br/images/stories/2020/QUALIDADE_DO_AR/Tabela_Inform%C3%A7%C3%B5es_Complementares_das_Esta%C3%A7%C3%B5es.xlsx). Acesso em: 01 mar. 2022.
+
+* FONSECA, Pedro Cezar Dutra; SALOMÃO, Ivan Colangelo. Industrialização brasileira: notas sobre o debate historiográfico. **Tempo**, [S.L.], v. 23, n. 1, p. 86-104, abr. 2017. FapUNIFESP (SciELO). [DOI](http://dx.doi.org/10.1590/tem-1980-542x2017v230105).
+
+* GONÇALVES, Priscila Boleta et al. Occurrence of polar organic compounds in atmospheric particulate matter: a system review in South America. **Environmental Monitoring And Assessment**, [S.L.], v. 193, n. 2, p. 1-10, fev. 2021. Springer Science and Business Media LLC. [DOI](http://dx.doi.org/10.1007/s10661-021-08881-x).
+
+* GROLEMUND, Garrett; WICKHAM, Hadley. Dates and Times Made Easy with lubridate. **Journal Of Statistical Software**, [S.L.], v. 40, n. 3, p. 1-25, abr. 2011. Foundation for Open Access Statistic. [DOI](http://dx.doi.org/10.18637/jss.v040.i03).
+
+* Instituto Brasileiro de Geografia e Estatística. (IBGE). **Estimativas da população residente no Brasil e Unidades da Federação com data de referência em 1º de julho de 2021**. 2021. Disponível em: [link](https://ftp.ibge.gov.br/Estimativas_de_Populacao/Estimativas_2021/estimativa_dou_2021.ods). Acesso em: 20 fev. 2022.
+
+* Instituto Estadual de Meio Ambiente e Recursos Hídricos (IEMA). **Relatório da Qualidade do Ar na Grande Vitória**: 2020. Cariacica, 2021. Disponível em: [link](https://iema.es.gov.br/Media/iema/CQAI/Relatorios_anuais/IEMA_CQAI_Relat%C3%B3rio_Anual_da_Qualidade_do_Ar_2020.pdf). Acesso em: 01 mar. 2022.
+
+* Instituto Estadual do Ambiente (INEA). **Relatório da Qualidade do Ar do estado do Rio de Janeiro**: Ano base 2018. Rio de Janeiro, 2020. Disponível em: [link](http://www.inea.rj.gov.br/wpcontent/uploads/2020/11/relatorio-qualidade-ar-2018.pdf). Acesso em: 01 mar. 2022.
+
+* NUNIFU, T.; FU, L. **Methods and Procedures for Trend Analysis of Air Quality Data**. Edmonton, 2019. 76 p. Disponível em: [link](https://open.alberta.ca/dataset/dad9671a-e0cd-493a-8b45-3747bf9e1e9f/resource/409c4cc3-ecdb-4391-9a7e-1ce21a799ea5/download/methodsprocedures-trend-analysis-air-quality-data.pdf).
+
+* POHLERT, T. **trend**: Non-Parametric Trend Tests and Change-Point Detection. [S.l.], 2020. R package version 1.1.4. Disponível em: [CRAN](https://CRAN.R-project.org/package=trend).
+
+* R CORE TEAM. **R**: A Language and Environment for Statistical Computing. Vienna, Austria, 2021. Disponível em: [link](https://www.R-project.org/).
+
+* Registro Nacional de Veículos Automotores (RENAVAM). **Frota de veículos, por tipo e com placa, segundo os Municípios da Federação**: Out/2021. 2021. Disponível em: [link](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/arquivossenatran/estatisticas/renavam/2021/outubro/frota-munic-modelo-outubro-2021.xls). Acesso em: 22 fev. 2022.
+
+* RStudio Team. **RStudio**: Integrated Development Environment for R. Boston, MA, 2020. Disponível em: [link](http://www.rstudio.com/).
+
+* SICARD, Pierre et al. Ozone weekend effect in cities: deep insights for urban air pollution control. **Environmental Research**, [S.L.], v. 191, p. 1-12, dez. 2020. Elsevier BV. [DOI](http://dx.doi.org/10.1016/j.envres.2020.110193).
+
+* VALDAMBRINI, Natasha Murgu; RIBEIRO, Flávia Noronha Dutra. Avaliação das Ultrapassagens dos Padrões de Ozônio Troposférico no Estado de São Paulo de 2014 a 2019. **Revista Brasileira de Meteorologia**, [S.L.], v. 36, n. 4, p. 735-747, dez. 2021. FapUNIFESP (SciELO). [DOI](http://dx.doi.org/10.1590/0102-7786360046).
+
+* VIEIRA-FILHO, Marcelo S.; LEHMANN, Christopher; FORNARO, Adalgiza. Influence of local sources and topography on air quality and rainwater composition in Cubatão and São Paulo, Brazil. **Atmospheric Environment**, [S.L.], v. 101, p. 200-208, jan. 2015. Elsevier BV. [DOI](http://dx.doi.org/10.1016/j.atmosenv.2014.11.025).
+
+* VORMITTAG, Evangelina da Motta P. A. de Araújo; CIRQUEIRA, Samirys Sara Rodrigues; WICHER NETO, Hélio; SALDIVA, Paulo Hilário N.. Análise do monitoramento da qualidade do ar no Brasil. **Estudos Avançados**, [S.L.], v. 35, n. 102, p. 7-30, ago. 2021. FapUNIFESP (SciELO). [DOI](http://dx.doi.org/10.1590/s0103-4014.2021.35102.002).
+
+* WANG, Xiaolan L.; SWAIL, Val R.. Changes of Extreme Wave Heights in Northern Hemisphere Oceans and Related Atmospheric Circulation Regimes. **Journal Of Climate**, [S.L.], v. 14, n. 10, p. 2204-2221, maio 2001. American Meteorological Society. [DOI](http://dx.doi.org/10.1175/1520-0442(2001)0142.0.co;2).
+
+* WICKHAM, H. et al. **dplyr**: A Grammar of Data Manipulation. [S.l.], 2021. R package version 1.0.7. Disponível em: [link](https://CRAN.R-project.org/package=dplyr).
+
+* YU, Pei et al. Loss of life expectancy from PM2.5 in Brazil: a national study from 2010 to 2018. **Environment International**, [S.L.], v. 166, n. 107350, p. 1-9, ago. 2022. Elsevier BV. [DOI](http://dx.doi.org/10.1016/j.envint.2022.107350).
+
+&copy; 2022 Arthur Boari. All rights reserved.

@@ -1,0 +1,18 @@
+This is 8-bit Big BibTeX version 0.99d-x4.00 ( 22.12)
+Implementation:  Microsoft(R) C/C++ for Win32
+Release version: 4.00 (22 may 2022)
+
+The 8-bit codepage and sorting file: 88591lat.csf
+The top-level auxiliary file: CV IME-USP.aux
+I found no \citation commands---while reading file CV IME-USP.aux
+I found no \bibdata command---while reading file CV IME-USP.aux
+I found no \bibstyle command---while reading file CV IME-USP.aux
+
+Here's how much of BibTeX's memory you used:
+ Cites:                 0 out of 750
+ Fields:                0 out of 5000
+ Hash table:         5001 out of 5000
+ Strings:              83 out of 4000
+ Free string pool:    479 out of 65000
+ Wizard functions:      0 out of 3000
+(There were 3 error messages)
