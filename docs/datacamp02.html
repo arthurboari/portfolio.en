@@ -11,7 +11,7 @@
 
 
 
-<title>Introduction to R</title>
+<title>Intermediate R</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -399,7 +399,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Introduction to R</h1>
+<h1 class="title toc-ignore">Intermediate R</h1>
 
 </div>
 
@@ -408,6 +408,28 @@ div.tocify {
 number="1">
 <h1><span class="header-section-number">1</span> Conditionals and
 Control Flow</h1>
+<div id="relational-operators" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Relational
+Operators</h2>
+<ul>
+<li>Equality <code>==</code></li>
+<li>Inequality <code>!=</code></li>
+<li><code>&lt;</code> and <code>&gt;</code></li>
+<li><code>&lt;=</code> and <code>&gt;=</code></li>
+</ul>
+<pre class="r"><code># Comparison of logicals
+TRUE == FALSE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code># Comparison of numerics
+-6 * 14 != 17 - 101</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code># Comparison of character strings
+&quot;useR&quot; == &quot;user&quot;</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code># Compare a logical with a numeric
+TRUE == 1</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
 </div>
 <div id="loops" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Loops</h1>
@@ -421,7 +443,7 @@ Control Flow</h1>
 <div id="utilities" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Utilities</h1>
 <hr />
-<p>This code was last compiled at 2023-03-19 16:04:41</p>
+<p>This code was last compiled at 2023-03-19 16:28:33</p>
 </div>
 
 
