@@ -1,0 +1,32 @@
+---
+title: "Introduction to R"
+output: 
+ html_document:
+   toc: true
+   toc_depth: 2
+   number_sections: true
+   toc_float: true
+---
+
+```{css, include=FALSE}
+.badCode {
+background-color: red;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Conditionals and Control Flow
+
+# Loops
+
+# Functions
+
+# The apply family
+
+# Utilities
+
+---
+This code was last compiled at `r Sys.time()`

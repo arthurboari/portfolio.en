@@ -18,6 +18,8 @@ navbar:
         - text: "R"
         - text: "01: Introduction to R"
           href: datacamp01.html
+        - text: "02: Intermediate R"
+          href: datacamp02.html
   right:
     - text: "Language"
       icon: fa-language

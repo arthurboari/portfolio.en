@@ -31,13 +31,14 @@ pre {
 }
 </style>
 ```
-```{r fig.align='center',echo=FALSE,out.width='60%',fig.cap='Arquivo pessoal'}
+```{r fig.align='center',echo=FALSE,out.width='60%'}
 knitr::include_graphics(path = "images/Untitled design (2).png")
 ```
 
+
 # Overview
 
-|       The author was born in Lavras City, Minas Gerais, Brazil, in 1995. His native language is Brazilian Portuguese, but speaks, writes, and reads in English too. Arthur cared about the environment as a child - a topic he would study years later to become an environmental engineer. The following text aims to give the reader an overview of his career so far.
+|         The author was born in Lavras City, Minas Gerais, Brazil, in 1995. His native language is Brazilian Portuguese, but speaks, writes, and reads in English too. Arthur cared about the environment as a child - a topic he would study years later to become an environmental engineer. The following text aims to give the reader an overview of his career so far.
 
 |       Currently, **Arthur Boari** is developing his master's research in the area of air pollution --- investigating trends in time series of Particulate Matter and Tropospheric Ozone from capital cities in the southeastern region of Brazil. He is linked to the [Post-graduate Program in Environmental Engineering](https://sites.google.com/ufla.br/ppgeamb/p%C3%A1gina-inicial?authuser=0) at the Universidade Federal de Lavras (UFLA), where [Prof. Dr. Marcelo Vieira-Filho](http://lattes.cnpq.br/5059318976988668) supervises him. He was the only entrant in the research line Climate Change, Energy and Atmospheric Pollution in the second semester of 2020.
 
