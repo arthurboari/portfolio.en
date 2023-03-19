@@ -1,0 +1,28 @@
+---
+title: "Introduction to R"
+output: 
+ html_document:
+   toc: true
+   toc_depth: 2
+   number_sections: true
+   toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Intro to basics
+
+# Vectors
+
+# Matrices
+
+# Factors
+
+# Data frames
+
+# Lists
+
+---
+This code was last compiled at `r Sys.time()`

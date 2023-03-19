@@ -3,7 +3,7 @@ navbar:
   title: "Arthur Boari"
   type: default
   left:
-    - text: "Códigos"
+    - text: "My codes"
       icon: fa-code
       menu:
         - text: "R"
@@ -12,8 +12,21 @@ navbar:
         - text: "Dashboards"
         - text: "Taylor Swift Spotify Data"
           href: "TSdashboard.html"
+    - text: "My annotations"
+      icon: fa-file-text-o
+      menu:
+        - text: "R"
+        - text: "01: Introduction to R"
+          href: datacamp01.html
   right:
-    - text: "Entre em Contato"
+    - text: "Language"
+      icon: fa-language
+      menu:
+        - text: "EN-US"
+          href: https://arthurboari.github.io/portfolio_en/
+        - text: "PT-BR"
+          href: https://arthurboari.github.io/portfolio_pt/
+    - text: "Contact"
       icon: fa-envelope
       href: mailto:eng.arthurboari@gmail.com
     - text: "Links"
