@@ -126,12 +126,488 @@ sms
 
 
 # Loops
+## While loop
+
+>while (condition) {
+  expr
+}
+
+Remember that the condition part of this recipe should become FALSE at some point during the execution. Otherwise, the while loop will go on indefinitely.
+```{r}
+# Initialize the speed variable
+speed <- 64
+
+# Code the while loop
+while (speed > 30) {
+  print("Slow down!")
+  speed <- speed -7
+}
+
+# Print out the speed variable
+speed
+```
+```{r}
+# Initialize the speed variable
+speed <- 64
+
+# Extend/adapt the while loop
+while (speed > 30) {
+  print(paste("Your speed is",speed))
+  if ( speed > 48) {
+    print("Slow down big time!")
+    speed <- speed -11
+  } else {
+    print("Slow down!")
+    speed <- speed -6
+  }
+}
+```
+```{r}
+# Initialize the speed variable
+speed <- 88
+
+while (speed > 30) {
+  print(paste("Your speed is", speed))
+  
+  # Break the while loop when speed exceeds 80
+  if (speed > 80) {
+    break
+  }
+  
+  if (speed > 48) {
+    print("Slow down big time!")
+    speed <- speed - 11
+  } else {
+    print("Slow down!")
+    speed <- speed - 6
+  }
+}
+```
+```{r}
+# Initialize i as 1 
+i <- 1
+
+# Code the while loop
+while (i <= 10) {
+  print(3*i)
+  if (3*i %% 8 == 0) {
+    break
+  }
+  i <- i + 1
+}
+```
+## For loop
+```{r}
+primes <- c(2, 3, 5, 7, 11, 13)
+
+# loop version 1
+for (p in primes) {
+  print(p)
+}
+
+# loop version 2
+for (i in 1:length(primes)) {
+  print(primes[i])
+}
+```
+```{r}
+# The nyc list is already specified
+nyc <- list(pop = 8405837, 
+            boroughs = c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island"), 
+            capital = FALSE)
+
+# Loop version 1
+for (p in nyc) {
+    print(p)
+}
+
+# Loop version 2
+for(p in 1:length(nyc)){
+    print(nyc[[p]])
+}
+```
+```{r}
+# The tic-tac-toe matrix ttt has already been defined for you
+ttt <- matrix(c("O",NA,"X",NA,"O","O","X",NA,"X"),byrow=TRUE,nrow = 3)
+
+# define the double for loop
+for (i in 1:nrow(ttt)) {
+  for (j in 1:ncol(ttt)) {
+    print(paste("On row", i, "and column", j, "the board contains", ttt[i,j]))
+  }
+}
+```
+```{r}
+# The linkedin vector has already been defined for you
+linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+
+# Code the for loop with conditionals
+for (li in linkedin) {
+  if (li >10) {
+    print("You're popular!")
+  } else {
+    print("Be more visible!")
+  }
+  print(li)
+}
+```
+```{r}
+# The linkedin vector has already been defined for you
+linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+
+# Adapt/extend the for loop
+for (li in linkedin) {
+  if (li > 10) {
+    print("You're popular!")
+  } else {
+    print("Be more visible!")
+  }
+  
+  # Add if statement with break
+  if(li > 16){
+    print("This is ridiculous, I'm outta here!")
+    break
+  } 
+  
+  # Add if statement with next
+  if(li <5){
+    print("This is too embarrassing!")
+    next
+  } 
+  
+  print(li)
+}
+```
+```{r}
+# Pre-defined variables
+rquote <- "r's internals are irrefutably intriguing"
+chars <- strsplit(rquote, split = "")[[1]]
+
+# Initialize rcount
+rcount <- 0
+
+# Finish the for loop
+for (char in chars) {
+  if(char == "r"){
+      rcount <- rcount +1
+  }
+  if(char == "u"){
+      break
+  }
+  
+}
+
+# Print out rcount
+print(rcount)
+```
+
+
+
+
 
 # Functions
+## Introduction to Functions
+```{r}
+args(mean)
+```
+```{r}
+# The linkedin and facebook vectors have already been created for you
+linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+facebook <- c(17, 7, 5, 16, 8, 13, 14)
+
+# Calculate the mean of the sum
+avg_sum <- mean(x = linkedin+facebook)
+
+# Calculate the trimmed mean of the sum
+avg_sum_trimmed <- mean(x = linkedin+facebook,trim = 0.2)
+
+# Inspect both new variables
+avg_sum
+avg_sum_trimmed
+```
+## Writing your own functions
+```{r}
+# Create a function pow_two()
+pow_two <- function(x){
+    return(x*x)
+}
+
+
+# Use the function
+pow_two(12)
+
+# Create a function sum_abs()
+sum_abs <- function(x,y){
+    return(abs(x)+abs(y))
+}
+
+
+# Use the function
+sum_abs(-2,3)
+```
+## R Packages
+```{r}
+# Load the ggplot2 package
+library(ggplot2)
+
+# Retry the qplot() function
+qplot(mtcars$wt, mtcars$hp)
+
+# Check out the currently attached packages again
+search()
+```
+
 
 # The apply family
 
+## lapply
+
+> lapply(X, FUN, ...)
+
+```{r}
+lapply(nyc, class)
+
+unlist(lapply(nyc, class))
+```
+To put it generally, lapply takes a vector or list X, and applies the function FUN to each of its members. If FUN requires additional arguments, you pass them after you've specified X and FUN (...). The output of lapply() is a list, the same length as X, where each element is the result of applying FUN on the corresponding element of X.
+
+```{r}
+# The vector pioneers has already been created for you
+pioneers <- c("GAUSS:1777", "BAYES:1702", "PASCAL:1623", "PEARSON:1857")
+
+# Split names from birth year
+split_math <- strsplit(pioneers, split = ":")
+
+# Convert to lowercase strings: split_low
+split_low <- lapply(split_math, tolower)
+
+# Take a look at the structure of split_low
+str(split_low)
+
+# Write function select_first()
+select_first <- function(x) {
+  x[1]
+}
+
+# Apply select_first() over split_low: names
+names <- lapply(split_low, select_first)
+
+# Write function select_second()
+select_second <- function(x) {
+  x[2]
+}
+
+years <- lapply(split_low, function(x) {x[2]})
+
+# Apply select_second() over split_low: years
+years <- lapply(split_low, select_second)
+
+# Generic select function
+select_el <- function(x, index) {
+  x[index]
+}
+
+# Use lapply() twice on split_low: names and years
+names <- lapply(split_low,select_el, index = 1)
+years <- lapply(split_low,select_el, index = 2)
+```
+
+## sapply
+
+```{r}
+cities <- c("New York","Paris","London","Tokyo")
+unlist(lapply(cities, nchar))
+sapply(cities, nchar)
+sapply(cities, nchar, USE.NAMES = FALSE)
+```
+sapply calls lapply to apply the nchar function over each element of the cities vector, and then uses the simplify2array function to convert that list lapply generated to an array. In our case, sapply managed to convert the result to a one dimensional array, which is a vector.
+
+```{r}
+first_and_last <- function(name) {
+  name <- gsub(" ","",name)
+  letters2 <- strsplit(name, split = "")[[1]]
+  c(first = min(letters2),last=max(letters2))
+}
+sapply(cities, first_and_last)
+```
+
+## vapply
+
+> RECAP:
+
+ - `lapply()`
+  - apply function over list or vector
+  - output = list
+ - `sapply()`
+  - apply function over list or vector
+  - **try to simplify** list to array
+ - `vapply()`
+  - apply function over list or vector
+  - **explicitly specify** output format
+
+> vapply(X, FUN, FUN.VALUE, ... USE.NAMES = TRUE)
+
+```{r}
+sapply(cities, nchar)
+vapply(cities, nchar, FUN.VALUE = numeric(1))
+
+vapply(cities, first_and_last, FUN.VALUE = character(2))
+#vapply(cities, first_and_last, FUN.VALUE = character(1))
+```
+
+
 # Utilities
+
+## Useful Functions
+
+  - `abs()`
+  - `round()`
+  - `sum()`
+  - `mean()`
+  - `seq()`
+  - `rep( each != times )`
+  - `sort()`
+  - `is.*()`
+  - `as.*()`
+  - `unlist()` -> vector
+  - `append()`
+  - `rev()`
+
+## Regular Expressions
+
+- Sequence of (meta)characters
+- Pattern existence
+- Pattern replacement
+- Pattern extraction
+- `grep()`, `grepl()`
+- `sub()`, `gsub()`
+
+> grepl(pattern = <regex>, x = <string)
+
+```{r}
+animals <- c("cat", "moose","impala","ant","kiwi")
+grepl(pattern = "a",x = animals)
+grep(pattern = "a",x = animals)
+which(grepl(pattern = "a",x = animals))
+grepl(pattern = "^a",x = animals) #start with
+grepl(pattern = "a$",x = animals) #end with
+```
+
+> sub(pattern = <regex>, replacement = <str>, x = <str>)
+
+```{r}
+sub(pattern = "a",replacement = "o",x = animals) #first match only
+gsub(pattern = "a",replacement = "o",x = animals) #match all
+gsub(pattern = "a|i",replacement = "_",x = animals) #match all 'a' or 'i'
+gsub(pattern = "a|i|o",replacement = "_",x = animals) #match all 'a' or 'i'
+```
+But there's more that can be added to make the pattern more robust:
+
+`@`, because a valid email must contain an at-sign.
+`.*`, which matches any character (.) zero or more times (*). Both the dot and the asterisk are metacharacters. You can use them to match any character between the at-sign and the ".edu" portion of an email address.
+`\\.edu$`, to match the ".edu" part of the email at the end of the string. The \\ part escapes the dot: it tells R that you want to use the . as an actual character.
+
+```{r}
+# The emails vector has already been defined for you
+emails <- c("john.doe@ivyleague.edu", "education@world.gov", "dalai.lama@peace.org",
+            "invalid.edu", "quant@bigdatacollege.edu", "cookie.monster@sesame.tv")
+
+# Use grepl() to match for .edu addresses more robustly
+grepl(pattern = "@.*\\.edu$",x = emails)
+
+# Use grep() to match for .edu addresses more robustly, save result to hits
+hits <- grep(pattern = "@.*\\.edu$",x = emails)
+
+# Subset emails using hits
+emails[hits]
+
+# Use sub() to convert the email domains to datacamp.edu
+sub(pattern="@.*\\.edu$",replacement="@datacamp.edu",x=emails)
+```
+
+`.*`: A usual suspect! It can be read as "any character that is matched zero or more times".
+`\\s`: Match a space. The "s" is normally a character, escaping it (\\) makes it a metacharacter.
+`[0-9]+`: Match the numbers 0 to 9, at least once (+).
+`([0-9]+)`: The parentheses are used to make parts of the matching string available to define the replacement. The `\\1` in the replacement argument of sub() gets set to the string that is captured by the regular expression `[0-9]+`.
+
+## Times & Dates
+
+```{r}
+today <- Sys.Date()
+today
+
+class(today)
+
+now <- Sys.time()
+now
+
+class(now)
+
+my_date <- as.Date("1971-05-14")
+my_date
+
+unclass(my_date) #JAN 1st 1970
+
+class(my_date)
+
+my_date <- as.Date("1971-14-05",format="%Y-%d-%m")
+my_date
+
+my_date + 1
+
+my_date2 <- as.Date("1998-09-29")
+
+my_date2 - my_date
+
+my_time <- as.POSIXct("1971-05-14 11:25:15 UTC")
+my_time
+
+my_time + 1
+
+my_time2 <- as.POSIXct("1974-07-14 21:11:55 UTC")
+
+my_time2 - my_time
+```
+
+> ISO: YYYY-mm-dd
+
+Dedicated R Packages:
+
+- lubridate
+- zoo
+- xts
+
+```{r}
+# Definition of character strings representing dates
+str1 <- "May 23, '96"
+str2 <- "2012-03-15"
+str3 <- "30/January/2006"
+
+# Convert the strings to dates: date1, date2, date3
+date1 <- as.Date(str1, format = "%b %d, '%y")
+date2 <- as.Date(str2, format = "%Y-%m-%d")
+date3 <- as.Date(str3, format = "%d/%B/%Y")
+
+# Convert dates to formatted strings
+format(date1, "%A")
+format(date2, "%d")
+format(date3, "%b %Y")
+```
+
+```{r}
+# Definition of character strings representing times
+str1 <- "May 23, '96 hours:23 minutes:01 seconds:45"
+str2 <- "2012-3-12 14:23:08"
+
+# Convert the strings to POSIXct objects: time1, time2
+time1 <- as.POSIXct(str1, format = "%B %d, '%y hours:%H minutes:%M seconds:%S")
+time2 <- as.POSIXct(str2, format = "%Y-%m-%d %H:%M:%S")
+
+# Convert times to formatted strings
+format(time1, "%M")
+format(time2, "%I:%M %p")
+```
+
 
 ---
 This code was last compiled at `r Sys.time()`

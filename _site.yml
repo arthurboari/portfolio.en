@@ -20,6 +20,8 @@ navbar:
           href: datacamp01.html
         - text: "02: Intermediate R"
           href: datacamp02.html
+        - text: "03: Introduction to the Tidyverse"
+          href: datacamp03.html
   right:
     - text: "Language"
       icon: fa-language
