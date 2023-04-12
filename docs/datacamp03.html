@@ -361,6 +361,9 @@ div.tocify {
     <li>
       <a href="datacamp04.html">04: Data Manipulation with dplyr</a>
     </li>
+    <li>
+      <a href="datacamp05.html">05: Joining Data with dplyr</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -678,10 +681,8 @@ verb</h2>
 <pre class="r"><code>gapminder%&gt;%
   group_by(year,continent)%&gt;%
   summarise(meanLifeExp = mean(lifeExp), totalPop = sum(pop))</code></pre>
-<pre><code>## `summarise()` has grouped
-## output by &#39;year&#39;. You can
-## override using the `.groups`
-## argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 60 × 4
 ## # Groups:   year [12]
 ##     year continent meanLifeExp   totalPop
@@ -732,10 +733,8 @@ by_year</code></pre>
 <pre class="r"><code>by_year_continent &lt;- gapminder %&gt;%
   group_by(year,continent)%&gt;%
   summarize(meanLifeExp = mean(lifeExp), totalPop = sum(pop))</code></pre>
-<pre><code>## `summarise()` has grouped
-## output by &#39;year&#39;. You can
-## override using the `.groups`
-## argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre class="r"><code>by_year_continent</code></pre>
 <pre><code>## # A tibble: 60 × 4
 ## # Groups:   year [12]
@@ -795,7 +794,7 @@ histograms represents a width of five years.</p>
   geom_boxplot()</code></pre>
 <p><img src="datacamp03_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <hr />
-<p>This code was last compiled at 2023-04-11 16:09:06</p>
+<p>This code was last compiled at 2023-04-12 17:46:52</p>
 </div>
 </div>
 

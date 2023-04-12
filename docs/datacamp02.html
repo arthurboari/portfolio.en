@@ -361,6 +361,9 @@ div.tocify {
     <li>
       <a href="datacamp04.html">04: Data Manipulation with dplyr</a>
     </li>
+    <li>
+      <a href="datacamp05.html">05: Joining Data with dplyr</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -820,14 +823,10 @@ library(ggplot2)
 
 # Retry the qplot() function
 qplot(mtcars$wt, mtcars$hp)</code></pre>
-<pre><code>## Warning: `qplot()` was deprecated in
-## ggplot2 3.4.0.
-## This warning is displayed
-## once every 8 hours.
-## Call
-## `lifecycle::last_lifecycle_warnings()`
-## to see where this warning was
-## generated.</code></pre>
+<pre><code>## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see
+## where this warning was generated.</code></pre>
 <p><img src="datacamp02_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre class="r"><code># Check out the currently attached packages again
 search()</code></pre>
@@ -1057,12 +1056,12 @@ string that is captured by the regular expression
 Dates</h2>
 <pre class="r"><code>today &lt;- Sys.Date()
 today</code></pre>
-<pre><code>## [1] &quot;2023-04-11&quot;</code></pre>
+<pre><code>## [1] &quot;2023-04-12&quot;</code></pre>
 <pre class="r"><code>class(today)</code></pre>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <pre class="r"><code>now &lt;- Sys.time()
 now</code></pre>
-<pre><code>## [1] &quot;2023-04-11 16:08:50 -03&quot;</code></pre>
+<pre><code>## [1] &quot;2023-04-12 17:46:25 -03&quot;</code></pre>
 <pre class="r"><code>class(now)</code></pre>
 <pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
 <pre class="r"><code>my_date &lt;- as.Date(&quot;1971-05-14&quot;)
@@ -1130,7 +1129,7 @@ format(time1, &quot;%M&quot;)</code></pre>
 <pre class="r"><code>format(time2, &quot;%I:%M %p&quot;)</code></pre>
 <pre><code>## [1] &quot;02:23 &quot;</code></pre>
 <hr />
-<p>This code was last compiled at 2023-04-11 16:08:51</p>
+<p>This code was last compiled at 2023-04-12 17:46:25</p>
 </div>
 </div>
 

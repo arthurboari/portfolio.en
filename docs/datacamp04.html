@@ -361,6 +361,9 @@ div.tocify {
     <li>
       <a href="datacamp04.html">04: Data Manipulation with dplyr</a>
     </li>
+    <li>
+      <a href="datacamp05.html">05: Joining Data with dplyr</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -417,16 +420,9 @@ dplyr</h1>
 <div id="exploring-data-with-dplyr" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Exploring data with
 dplyr</h2>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>counties &lt;- readRDS(file = &quot;datasets/counties.rds&quot;)</code></pre>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+counties &lt;- readRDS(file = &quot;datasets/counties.rds&quot;)</code></pre>
 <pre class="r"><code>glimpse(counties)</code></pre>
 <pre><code>## Rows: 3,138
 ## Columns: 40
@@ -703,8 +699,8 @@ summarize, and ungroup verbs</h2>
   summarize(total_pop = sum(population),
             average_enemployment = mean(unemployment)) %&gt;%
   arrange(desc(average_enemployment))</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 97 × 4
 ## # Groups:   state [50]
 ##    state          metro    total_pop average_enemployment
@@ -726,8 +722,8 @@ summarize, and ungroup verbs</h2>
             average_enemployment = mean(unemployment)) %&gt;%
   arrange(desc(average_enemployment)) %&gt;%
   ungroup()</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 97 × 4
 ##    state          metro    total_pop average_enemployment
 ##    &lt;chr&gt;          &lt;chr&gt;        &lt;dbl&gt;                &lt;dbl&gt;
@@ -805,8 +801,8 @@ slice_max verbs</h2>
   # Find the total population for each combination of state and metro
   group_by(state, metro) %&gt;%
   summarize(total_pop = sum(population))</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 97 × 3
 ## # Groups:   state [50]
 ##    state      metro    total_pop
@@ -828,8 +824,8 @@ slice_max verbs</h2>
   summarize(total_pop = sum(population)) %&gt;%
   # Extract the most populated row for each state
   slice_max(total_pop, n = 1)</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 50 × 3
 ## # Groups:   state [50]
 ##    state       metro total_pop
@@ -853,8 +849,8 @@ slice_max verbs</h2>
   slice_max(total_pop, n = 1) %&gt;%
   # Count the states with more people in Metro or Nonmetro areas
   ungroup()</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 50 × 3
 ##    state       metro total_pop
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;
@@ -878,8 +874,8 @@ slice_max verbs</h2>
   # Count the states with more people in Metro or Nonmetro areas
   ungroup() %&gt;%
   count(metro)</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
-## `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You
+## can override using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 2 × 2
 ##   metro        n
 ##   &lt;chr&gt;    &lt;int&gt;
@@ -891,8 +887,368 @@ slice_max verbs</h2>
 number="3">
 <h1><span class="header-section-number">3</span> Selecting and
 Transforming Data</h1>
+<div id="selecting" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Selecting</h2>
+<pre class="r"><code>counties %&gt;%
+  select(state, county, drive:work_at_home) %&gt;%
+  arrange(drive)</code></pre>
+<pre><code>## # A tibble: 3,138 × 8
+##    state    county                   drive carpool transit  walk other…¹ work_…²
+##    &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 New York New York                   6.1     1.9    59.2  20.7     5.4     6.8
+##  2 Alaska   Northwest Arctic Borough  16.5    10.4     0.4  46.9    21.2     4.6
+##  3 Alaska   Aleutians East Borough    18.4     4.9     0.5  71.2     2.2     2.8
+##  4 New York Kings                     18.6     4.4    61.7   8.8     2.5     3.9
+##  5 Alaska   North Slope Borough       20.1    17       2.8  37.9     7.9    14.3
+##  6 Alaska   Lake and Peninsula Boro…  21.2     6.8     1.1  36.2    32.4     2.4
+##  7 New York Bronx                     22.5     4.7    59.7   8       1.8     3.3
+##  8 Alaska   Nome Census Area          25.8    10       0.3  36.9    22.7     4.3
+##  9 Alaska   Bethel Census Area        26.5    12.7     0.5  33      22.6     4.8
+## 10 Alaska   Yukon-Koyukuk Census Ar…  28.7     8.1     0.2  38.1    20.1     4.9
+## # … with 3,128 more rows, and abbreviated variable names ¹​other_transp,
+## #   ²​work_at_home</code></pre>
+<pre class="r"><code>counties %&gt;%
+  select(state, county, contains(&quot;work&quot;))</code></pre>
+<pre><code>## # A tibble: 3,138 × 6
+##    state   county   work_at_home private_work public_work family_work
+##    &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Alabama Autauga           1.8         73.6        20.9         0  
+##  2 Alabama Baldwin           3.9         81.5        12.3         0.4
+##  3 Alabama Barbour           1.6         71.8        20.8         0.1
+##  4 Alabama Bibb              0.7         76.8        16.1         0.4
+##  5 Alabama Blount            2.3         82          13.5         0.4
+##  6 Alabama Bullock           2.8         79.5        15.1         0  
+##  7 Alabama Butler            1.7         77.4        16.2         0.2
+##  8 Alabama Calhoun           2.7         74.1        20.8         0.1
+##  9 Alabama Chambers          2.1         85.1        12.1         0  
+## 10 Alabama Cherokee          2.5         73.1        18.5         0.5
+## # … with 3,128 more rows</code></pre>
+<pre class="r"><code>counties %&gt;%
+  select(state, county, starts_with(&quot;income&quot;))</code></pre>
+<pre><code>## # A tibble: 3,138 × 6
+##    state   county   income income_err income_per_cap income_per_cap_err
+##    &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;              &lt;dbl&gt;
+##  1 Alabama Autauga   51281       2391          24974               1080
+##  2 Alabama Baldwin   50254       1263          27317                711
+##  3 Alabama Barbour   32964       2973          16824                798
+##  4 Alabama Bibb      38678       3995          18431               1618
+##  5 Alabama Blount    45813       3141          20532                708
+##  6 Alabama Bullock   31938       5884          17580               2055
+##  7 Alabama Butler    32229       1793          18390                714
+##  8 Alabama Calhoun   41703        925          21374                489
+##  9 Alabama Chambers  34177       2949          21071               1366
+## 10 Alabama Cherokee  36296       1710          21811               1556
+## # … with 3,128 more rows</code></pre>
+<p>Other helpers: <code>contains()</code>, <code>starts_with()</code>,
+<code>ends_with()</code>, <code>last_col()</code>,
+<code>matches()</code>. ?select_helpers</p>
+<pre class="r"><code>counties %&gt;%
+  select(-census_id)</code></pre>
+<pre><code>## # A tibble: 3,138 × 39
+##    state   county   region metro  popul…¹   men women hispa…² white black native
+##    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Alabama Autauga  South  Metro    55221 26745 28476     2.6  75.8  18.5    0.4
+##  2 Alabama Baldwin  South  Metro   195121 95314 99807     4.5  83.1   9.5    0.6
+##  3 Alabama Barbour  South  Nonme…   26932 14497 12435     4.6  46.2  46.7    0.2
+##  4 Alabama Bibb     South  Metro    22604 12073 10531     2.2  74.5  21.4    0.4
+##  5 Alabama Blount   South  Metro    57710 28512 29198     8.6  87.9   1.5    0.3
+##  6 Alabama Bullock  South  Nonme…   10678  5660  5018     4.4  22.2  70.7    1.2
+##  7 Alabama Butler   South  Nonme…   20354  9502 10852     1.2  53.3  43.8    0.1
+##  8 Alabama Calhoun  South  Metro   116648 56274 60374     3.5  73    20.3    0.2
+##  9 Alabama Chambers South  Nonme…   34079 16258 17821     0.4  57.3  40.3    0.2
+## 10 Alabama Cherokee South  Nonme…   26008 12975 13033     1.5  91.7   4.8    0.6
+## # … with 3,128 more rows, 28 more variables: asian &lt;dbl&gt;, pacific &lt;dbl&gt;,
+## #   citizens &lt;dbl&gt;, income &lt;dbl&gt;, income_err &lt;dbl&gt;, income_per_cap &lt;dbl&gt;,
+## #   income_per_cap_err &lt;dbl&gt;, poverty &lt;dbl&gt;, child_poverty &lt;dbl&gt;,
+## #   professional &lt;dbl&gt;, service &lt;dbl&gt;, office &lt;dbl&gt;, construction &lt;dbl&gt;,
+## #   production &lt;dbl&gt;, drive &lt;dbl&gt;, carpool &lt;dbl&gt;, transit &lt;dbl&gt;, walk &lt;dbl&gt;,
+## #   other_transp &lt;dbl&gt;, work_at_home &lt;dbl&gt;, mean_commute &lt;dbl&gt;, employed &lt;dbl&gt;,
+## #   private_work &lt;dbl&gt;, public_work &lt;dbl&gt;, self_employed &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="the-rename-verb" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> The rename verb</h2>
+<pre class="r"><code>counties_selected %&gt;%
+  rename(unemployment_rate = unemployment)</code></pre>
+<pre><code>## # A tibble: 3,138 × 5
+##    state   county   population unemployment_rate metro   
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;             &lt;dbl&gt; &lt;chr&gt;   
+##  1 Alabama Autauga       55221               7.6 Metro   
+##  2 Alabama Baldwin      195121               7.5 Metro   
+##  3 Alabama Barbour       26932              17.6 Nonmetro
+##  4 Alabama Bibb          22604               8.3 Metro   
+##  5 Alabama Blount        57710               7.7 Metro   
+##  6 Alabama Bullock       10678              18   Nonmetro
+##  7 Alabama Butler        20354              10.9 Nonmetro
+##  8 Alabama Calhoun      116648              12.3 Metro   
+##  9 Alabama Chambers      34079               8.9 Nonmetro
+## 10 Alabama Cherokee      26008               7.9 Nonmetro
+## # … with 3,128 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  select(state,county,population, unemployment_rate = unemployment)</code></pre>
+<pre><code>## # A tibble: 3,138 × 4
+##    state   county   population unemployment_rate
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;             &lt;dbl&gt;
+##  1 Alabama Autauga       55221               7.6
+##  2 Alabama Baldwin      195121               7.5
+##  3 Alabama Barbour       26932              17.6
+##  4 Alabama Bibb          22604               8.3
+##  5 Alabama Blount        57710               7.7
+##  6 Alabama Bullock       10678              18  
+##  7 Alabama Butler        20354              10.9
+##  8 Alabama Calhoun      116648              12.3
+##  9 Alabama Chambers      34079               8.9
+## 10 Alabama Cherokee      26008               7.9
+## # … with 3,128 more rows</code></pre>
+</div>
+<div id="the-transmute-verb" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> The transmute
+verb</h2>
+<pre class="r"><code>counties %&gt;%
+  transmute(state, county, fraction_men = men / population)</code></pre>
+<pre><code>## # A tibble: 3,138 × 3
+##    state   county   fraction_men
+##    &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;
+##  1 Alabama Autauga         0.484
+##  2 Alabama Baldwin         0.488
+##  3 Alabama Barbour         0.538
+##  4 Alabama Bibb            0.534
+##  5 Alabama Blount          0.494
+##  6 Alabama Bullock         0.530
+##  7 Alabama Butler          0.467
+##  8 Alabama Calhoun         0.482
+##  9 Alabama Chambers        0.477
+## 10 Alabama Cherokee        0.499
+## # … with 3,128 more rows</code></pre>
+<pre class="r"><code>counties %&gt;%
+  transmute(state, county, population, unemployed_people = population*unemployment / 100)</code></pre>
+<pre><code>## # A tibble: 3,138 × 4
+##    state   county   population unemployed_people
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;             &lt;dbl&gt;
+##  1 Alabama Autauga       55221             4197.
+##  2 Alabama Baldwin      195121            14634.
+##  3 Alabama Barbour       26932             4740.
+##  4 Alabama Bibb          22604             1876.
+##  5 Alabama Blount        57710             4444.
+##  6 Alabama Bullock       10678             1922.
+##  7 Alabama Butler        20354             2219.
+##  8 Alabama Calhoun      116648            14348.
+##  9 Alabama Chambers      34079             3033.
+## 10 Alabama Cherokee      26008             2055.
+## # … with 3,128 more rows</code></pre>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="40%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center"><strong>keeps only specified variables</strong></th>
+<th align="center"><strong>keeps other variables</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Can’t change values</strong></td>
+<td align="center">select</td>
+<td align="center">rename</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Can change values</strong></td>
+<td align="center">transmute</td>
+<td align="center">mutate</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="case-study-the-babynames-dataset" class="section level1"
+number="4">
+<h1><span class="header-section-number">4</span> Case Study: The
+babynames Dataset</h1>
+<div id="the-babynames-data" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> The babynames
+data</h2>
+<pre class="r"><code>babynames &lt;- readRDS(file = &quot;docs/datasets/babynames.rds&quot;)</code></pre>
+<pre class="r"><code>babynames %&gt;%
+  filter(name == &quot;Arthur&quot;)</code></pre>
+<pre><code>## # A tibble: 28 × 3
+##     year name   number
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt;
+##  1  1880 Arthur   1604
+##  2  1885 Arthur   1526
+##  3  1890 Arthur   1618
+##  4  1895 Arthur   1674
+##  5  1900 Arthur   1870
+##  6  1905 Arthur   1519
+##  7  1910 Arthur   1956
+##  8  1915 Arthur   8602
+##  9  1920 Arthur  10300
+## 10  1925 Arthur  10064
+## # … with 18 more rows</code></pre>
+<pre class="r"><code>babynames_filtered &lt;- babynames %&gt;%
+  filter(name == &quot;Arthur&quot;)</code></pre>
+<pre class="r"><code>ggplot(babynames_filtered,aes(x = year, y = number)) +
+  geom_line()</code></pre>
+<p><img src="datacamp04_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>babynames_multiple &lt;- babynames %&gt;%
+  filter(name %in% c(&quot;Arthur&quot;, &quot;Lucas&quot;)) #Lucas is my brother&#39;s name :) - I chose it lol</code></pre>
+<pre class="r"><code>babynames %&gt;%
+  # Find the most common name in each year
+  group_by(year) %&gt;%
+  slice_max(number,n=1)</code></pre>
+<pre><code>## # A tibble: 28 × 3
+## # Groups:   year [28]
+##     year name  number
+##    &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;
+##  1  1880 John    9701
+##  2  1885 Mary    9166
+##  3  1890 Mary   12113
+##  4  1895 Mary   13493
+##  5  1900 Mary   16781
+##  6  1905 Mary   16135
+##  7  1910 Mary   22947
+##  8  1915 Mary   58346
+##  9  1920 Mary   71175
+## 10  1925 Mary   70857
+## # … with 18 more rows</code></pre>
+</div>
+<div id="grouped-mutates" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Grouped mutates</h2>
+<pre class="r"><code>babynames %&gt;%
+  group_by(year) %&gt;%
+  summarise(year_total = sum(number))</code></pre>
+<pre><code>## # A tibble: 28 × 2
+##     year year_total
+##    &lt;dbl&gt;      &lt;int&gt;
+##  1  1880     201478
+##  2  1885     240822
+##  3  1890     301352
+##  4  1895     350934
+##  5  1900     450148
+##  6  1905     423875
+##  7  1910     590607
+##  8  1915    1830351
+##  9  1920    2259494
+## 10  1925    2330750
+## # … with 18 more rows</code></pre>
+<pre class="r"><code>babynames %&gt;%
+  group_by(year) %&gt;%
+  mutate(year_total = sum(number)) %&gt;%
+  ungroup() %&gt;%
+  mutate(fraction = number/year_total)</code></pre>
+<pre><code>## # A tibble: 332,595 × 5
+##     year name    number year_total  fraction
+##    &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;
+##  1  1880 Aaron      102     201478 0.000506 
+##  2  1880 Ab           5     201478 0.0000248
+##  3  1880 Abbie       71     201478 0.000352 
+##  4  1880 Abbott       5     201478 0.0000248
+##  5  1880 Abby         6     201478 0.0000298
+##  6  1880 Abe         50     201478 0.000248 
+##  7  1880 Abel         9     201478 0.0000447
+##  8  1880 Abigail     12     201478 0.0000596
+##  9  1880 Abner       27     201478 0.000134 
+## 10  1880 Abraham     81     201478 0.000402 
+## # … with 332,585 more rows</code></pre>
+</div>
+<div id="window-functions" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Window functions</h2>
+<pre class="r"><code>v&lt;-c(1,3,6,14)
+v</code></pre>
+<pre><code>## [1]  1  3  6 14</code></pre>
+<pre class="r"><code>lag(v)</code></pre>
+<pre><code>## [1] NA  1  3  6</code></pre>
+<pre class="r"><code>v-lag(v)</code></pre>
+<pre><code>## [1] NA  2  3  8</code></pre>
+<p>Because by lining up each item in the vector with the item directly
+before it, we can compare consecutive steps and calculate the changes.
+With v minus lag(v), we’re asking “What is each value once we’ve
+subtracted the previous one?”</p>
+<pre class="r"><code>babynames_fraction &lt;- babynames %&gt;%
+  group_by(year) %&gt;%
+  mutate(year_total = sum(number)) %&gt;%
+  ungroup() %&gt;%
+  mutate(fraction = number/year_total)
+
+babynames_fraction %&gt;%
+  filter(name == &quot;Arthur&quot;) %&gt;%
+  arrange(year)</code></pre>
+<pre><code>## # A tibble: 28 × 5
+##     year name   number year_total fraction
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt;      &lt;int&gt;    &lt;dbl&gt;
+##  1  1880 Arthur   1604     201478  0.00796
+##  2  1885 Arthur   1526     240822  0.00634
+##  3  1890 Arthur   1618     301352  0.00537
+##  4  1895 Arthur   1674     350934  0.00477
+##  5  1900 Arthur   1870     450148  0.00415
+##  6  1905 Arthur   1519     423875  0.00358
+##  7  1910 Arthur   1956     590607  0.00331
+##  8  1915 Arthur   8602    1830351  0.00470
+##  9  1920 Arthur  10300    2259494  0.00456
+## 10  1925 Arthur  10064    2330750  0.00432
+## # … with 18 more rows</code></pre>
+<pre class="r"><code>babynames_fraction %&gt;%
+  filter(name == &quot;Arthur&quot;) %&gt;%
+  arrange(year) %&gt;%
+  mutate(difference = fraction - lag(fraction))</code></pre>
+<pre><code>## # A tibble: 28 × 6
+##     year name   number year_total fraction difference
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt;      &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1  1880 Arthur   1604     201478  0.00796  NA       
+##  2  1885 Arthur   1526     240822  0.00634  -0.00162 
+##  3  1890 Arthur   1618     301352  0.00537  -0.000967
+##  4  1895 Arthur   1674     350934  0.00477  -0.000599
+##  5  1900 Arthur   1870     450148  0.00415  -0.000616
+##  6  1905 Arthur   1519     423875  0.00358  -0.000571
+##  7  1910 Arthur   1956     590607  0.00331  -0.000272
+##  8  1915 Arthur   8602    1830351  0.00470   0.00139 
+##  9  1920 Arthur  10300    2259494  0.00456  -0.000141
+## 10  1925 Arthur  10064    2330750  0.00432  -0.000241
+## # … with 18 more rows</code></pre>
+<pre class="r"><code>babynames_fraction %&gt;%
+  filter(name == &quot;Arthur&quot;) %&gt;%
+  arrange(year) %&gt;%
+  mutate(difference = fraction - lag(fraction)) %&gt;%
+  arrange(desc(difference))</code></pre>
+<pre><code>## # A tibble: 28 × 6
+##     year name   number year_total fraction difference
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt;      &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1  1915 Arthur   8602    1830351 0.00470   0.00139  
+##  2  2015 Arthur   1244    3648781 0.000341  0.000143 
+##  3  2010 Arthur    727    3672066 0.000198 -0.0000188
+##  4  2005 Arthur    830    3828460 0.000217 -0.0000258
+##  5  1985 Arthur   1730    3563364 0.000485 -0.0000484
+##  6  2000 Arthur    914    3767293 0.000243 -0.0000615
+##  7  1995 Arthur   1111    3652750 0.000304 -0.0000888
+##  8  1990 Arthur   1549    3941775 0.000393 -0.0000925
+##  9  1920 Arthur  10300    2259494 0.00456  -0.000141 
+## 10  1980 Arthur   1836    3439117 0.000534 -0.000144 
+## # … with 18 more rows</code></pre>
+<pre class="r"><code>babynames_fraction %&gt;%
+  arrange(name,year) %&gt;%
+  group_by(name) %&gt;%
+  mutate(difference = fraction - lag(fraction)) %&gt;%
+  ungroup() %&gt;%
+  arrange(desc(difference))</code></pre>
+<pre><code>## # A tibble: 332,595 × 6
+##     year name     number year_total fraction difference
+##    &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1  1935 Shirley   42790    2088487  0.0205     0.0137 
+##  2  1985 Ashley    47509    3563364  0.0133     0.0110 
+##  3  1955 Debra     50630    4012691  0.0126     0.0109 
+##  4  1975 Jason     52486    3014943  0.0174     0.00981
+##  5  1970 Jennifer  46276    3604252  0.0128     0.00863
+##  6  1965 Lisa      60443    3624610  0.0167     0.00854
+##  7  1940 Judith    22462    2301630  0.00976    0.00790
+##  8  1925 Betty     32897    2330750  0.0141     0.00790
+##  9  1950 Deborah   29111    3502592  0.00831    0.00776
+## 10  1945 Linda     41572    2652029  0.0157     0.00767
+## # … with 332,585 more rows</code></pre>
 <hr />
-<p>This code was last compiled at 2023-04-12 15:11:49</p>
+<p>This code was last compiled at 2023-04-12 17:47:11</p>
+</div>
 </div>
 
 
