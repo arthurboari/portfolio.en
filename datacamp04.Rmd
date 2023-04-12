@@ -1,0 +1,169 @@
+---
+title: "Data Manipulation with dplyr"
+output: 
+ html_document:
+   toc: true
+   toc_depth: 2
+   number_sections: true
+   toc_float: true
+---
+
+```{css, include=FALSE}
+.badCode {
+background-color: red;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Transforming Data with dplyr
+
+## Exploring data with dplyr
+
+```{r}
+library(dplyr)
+counties <- readRDS(file = "datasets/counties.rds")
+```
+```{r}
+glimpse(counties)
+
+counties %>%
+  # Select the columns
+  select(state,county,population,poverty)
+```
+
+## The filter and arrange verbs
+
+```{r}
+counties_selected <- counties %>%
+  select(state,county,population,unemployment,metro)
+
+counties_selected
+
+counties_selected %>%
+  arrange(population)
+
+counties_selected %>%
+  arrange(desc(population))
+
+counties_selected %>%
+  arrange(desc(population)) %>%
+  filter(state == "New York")
+
+counties_selected %>%
+  arrange(desc(population)) %>%
+  filter(unemployment<6) #6%
+
+counties_selected %>%
+  arrange(desc(population)) %>%
+  filter(state == "New York",unemployment<6)
+```
+## The mutate() verb
+
+```{r}
+counties_selected %>%
+  mutate(unemployed_population = population*unemployment/100) %>%
+  arrange(desc(unemployed_population))
+```
+
+# Aggregating Data
+
+## The count verb
+
+```{r}
+counties %>%
+  count()
+
+counties %>%
+  count(state)
+
+counties %>%
+  count(state, sort = TRUE)
+
+counties %>%
+  count(state, wt = population, sort = TRUE)
+```
+## The group_by, summarize, and ungroup verbs
+
+```{r}
+counties %>%
+  summarize(total_pop = sum(population))
+
+counties %>%
+  group_by(state) %>%
+  summarize(total_pop = sum(population),
+            average_enemployment = mean(unemployment)) %>%
+  arrange(desc(average_enemployment))
+
+counties %>%
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population),
+            average_enemployment = mean(unemployment)) %>%
+  arrange(desc(average_enemployment))
+
+counties %>%
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population),
+            average_enemployment = mean(unemployment)) %>%
+  arrange(desc(average_enemployment)) %>%
+  ungroup()
+```
+
+## The slice_min and slice_max verbs
+
+```{r}
+counties_selected %>%
+  group_by(state) %>%
+  slice_max(population, n = 1)
+
+counties_selected %>%
+  group_by(state) %>%
+  slice_min(unemployment, n = 1)
+
+counties_selected %>%
+  group_by(state) %>%
+  slice_max(unemployment, n = 3)
+```
+
+```{r}
+counties_selected %>%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population))
+
+counties_selected %>%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population)) %>%
+  # Extract the most populated row for each state
+  slice_max(total_pop, n = 1)
+
+counties_selected %>%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population)) %>%
+  # Extract the most populated row for each state
+  slice_max(total_pop, n = 1) %>%
+  # Count the states with more people in Metro or Nonmetro areas
+  ungroup()
+
+counties_selected %>%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %>%
+  summarize(total_pop = sum(population)) %>%
+  # Extract the most populated row for each state
+  slice_max(total_pop, n = 1) %>%
+  # Count the states with more people in Metro or Nonmetro areas
+  ungroup() %>%
+  count(metro)
+```
+
+# Selecting and Transforming Data
+
+
+
+
+---
+This code was last compiled at `r Sys.time()`

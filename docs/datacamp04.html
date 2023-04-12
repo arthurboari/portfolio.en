@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data Manipulation with dplyr</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Arthur Boari</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    My codes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">R</li>
+    <li>
+      <a href="Simple_maps.html">Basic ggplot2 maps + geobr</a>
+    </li>
+    <li class="dropdown-header">Dashboards</li>
+    <li>
+      <a href="TSdashboard.html">Taylor Swift Spotify Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    My annotations
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">R</li>
+    <li>
+      <a href="datacamp01.html">01: Introduction to R</a>
+    </li>
+    <li>
+      <a href="datacamp02.html">02: Intermediate R</a>
+    </li>
+    <li>
+      <a href="datacamp03.html">03: Introduction to the Tidyverse</a>
+    </li>
+    <li>
+      <a href="datacamp04.html">04: Data Manipulation with dplyr</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-language"></span>
+     
+    Language
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://arthurboari.github.io/portfolio_en/">EN-US</a>
+    </li>
+    <li>
+      <a href="https://arthurboari.github.io/portfolio_pt/">PT-BR</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="mailto:eng.arthurboari@gmail.com">
+    <span class="fa fa-envelope"></span>
+     
+    Contact
+  </a>
+</li>
+<li>
+  <a href="https://linktr.ee/aboari">
+    <span class="fa fa-link"></span>
+     
+    Links
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data Manipulation with dplyr</h1>
+
+</div>
+
+
+<div id="transforming-data-with-dplyr" class="section level1"
+number="1">
+<h1><span class="header-section-number">1</span> Transforming Data with
+dplyr</h1>
+<div id="exploring-data-with-dplyr" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Exploring data with
+dplyr</h2>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>counties &lt;- readRDS(file = &quot;datasets/counties.rds&quot;)</code></pre>
+<pre class="r"><code>glimpse(counties)</code></pre>
+<pre><code>## Rows: 3,138
+## Columns: 40
+## $ census_id          &lt;chr&gt; &quot;1001&quot;, &quot;1003&quot;, &quot;1005&quot;, &quot;1007&quot;, &quot;1009&quot;, &quot;1011&quot;, &quot;10…
+## $ state              &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabam…
+## $ county             &lt;chr&gt; &quot;Autauga&quot;, &quot;Baldwin&quot;, &quot;Barbour&quot;, &quot;Bibb&quot;, &quot;Blount&quot;, …
+## $ region             &lt;chr&gt; &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South&quot;, &quot;South…
+## $ metro              &lt;chr&gt; &quot;Metro&quot;, &quot;Metro&quot;, &quot;Nonmetro&quot;, &quot;Metro&quot;, &quot;Metro&quot;, &quot;No…
+## $ population         &lt;dbl&gt; 55221, 195121, 26932, 22604, 57710, 10678, 20354, 1…
+## $ men                &lt;dbl&gt; 26745, 95314, 14497, 12073, 28512, 5660, 9502, 5627…
+## $ women              &lt;dbl&gt; 28476, 99807, 12435, 10531, 29198, 5018, 10852, 603…
+## $ hispanic           &lt;dbl&gt; 2.6, 4.5, 4.6, 2.2, 8.6, 4.4, 1.2, 3.5, 0.4, 1.5, 7…
+## $ white              &lt;dbl&gt; 75.8, 83.1, 46.2, 74.5, 87.9, 22.2, 53.3, 73.0, 57.…
+## $ black              &lt;dbl&gt; 18.5, 9.5, 46.7, 21.4, 1.5, 70.7, 43.8, 20.3, 40.3,…
+## $ native             &lt;dbl&gt; 0.4, 0.6, 0.2, 0.4, 0.3, 1.2, 0.1, 0.2, 0.2, 0.6, 0…
+## $ asian              &lt;dbl&gt; 1.0, 0.7, 0.4, 0.1, 0.1, 0.2, 0.4, 0.9, 0.8, 0.3, 0…
+## $ pacific            &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0…
+## $ citizens           &lt;dbl&gt; 40725, 147695, 20714, 17495, 42345, 8057, 15581, 88…
+## $ income             &lt;dbl&gt; 51281, 50254, 32964, 38678, 45813, 31938, 32229, 41…
+## $ income_err         &lt;dbl&gt; 2391, 1263, 2973, 3995, 3141, 5884, 1793, 925, 2949…
+## $ income_per_cap     &lt;dbl&gt; 24974, 27317, 16824, 18431, 20532, 17580, 18390, 21…
+## $ income_per_cap_err &lt;dbl&gt; 1080, 711, 798, 1618, 708, 2055, 714, 489, 1366, 15…
+## $ poverty            &lt;dbl&gt; 12.9, 13.4, 26.7, 16.8, 16.7, 24.6, 25.4, 20.5, 21.…
+## $ child_poverty      &lt;dbl&gt; 18.6, 19.2, 45.3, 27.9, 27.2, 38.4, 39.2, 31.6, 37.…
+## $ professional       &lt;dbl&gt; 33.2, 33.1, 26.8, 21.5, 28.5, 18.8, 27.5, 27.3, 23.…
+## $ service            &lt;dbl&gt; 17.0, 17.7, 16.1, 17.9, 14.1, 15.0, 16.6, 17.7, 14.…
+## $ office             &lt;dbl&gt; 24.2, 27.1, 23.1, 17.8, 23.9, 19.7, 21.9, 24.2, 26.…
+## $ construction       &lt;dbl&gt; 8.6, 10.8, 10.8, 19.0, 13.5, 20.1, 10.3, 10.5, 11.5…
+## $ production         &lt;dbl&gt; 17.1, 11.2, 23.1, 23.7, 19.9, 26.4, 23.7, 20.4, 24.…
+## $ drive              &lt;dbl&gt; 87.5, 84.7, 83.8, 83.2, 84.9, 74.9, 84.5, 85.3, 85.…
+## $ carpool            &lt;dbl&gt; 8.8, 8.8, 10.9, 13.5, 11.2, 14.9, 12.4, 9.4, 11.9, …
+## $ transit            &lt;dbl&gt; 0.1, 0.1, 0.4, 0.5, 0.4, 0.7, 0.0, 0.2, 0.2, 0.2, 0…
+## $ walk               &lt;dbl&gt; 0.5, 1.0, 1.8, 0.6, 0.9, 5.0, 0.8, 1.2, 0.3, 0.6, 1…
+## $ other_transp       &lt;dbl&gt; 1.3, 1.4, 1.5, 1.5, 0.4, 1.7, 0.6, 1.2, 0.4, 0.7, 1…
+## $ work_at_home       &lt;dbl&gt; 1.8, 3.9, 1.6, 0.7, 2.3, 2.8, 1.7, 2.7, 2.1, 2.5, 1…
+## $ mean_commute       &lt;dbl&gt; 26.5, 26.4, 24.1, 28.8, 34.9, 27.5, 24.6, 24.1, 25.…
+## $ employed           &lt;dbl&gt; 23986, 85953, 8597, 8294, 22189, 3865, 7813, 47401,…
+## $ private_work       &lt;dbl&gt; 73.6, 81.5, 71.8, 76.8, 82.0, 79.5, 77.4, 74.1, 85.…
+## $ public_work        &lt;dbl&gt; 20.9, 12.3, 20.8, 16.1, 13.5, 15.1, 16.2, 20.8, 12.…
+## $ self_employed      &lt;dbl&gt; 5.5, 5.8, 7.3, 6.7, 4.2, 5.4, 6.2, 5.0, 2.8, 7.9, 4…
+## $ family_work        &lt;dbl&gt; 0.0, 0.4, 0.1, 0.4, 0.4, 0.0, 0.2, 0.1, 0.0, 0.5, 0…
+## $ unemployment       &lt;dbl&gt; 7.6, 7.5, 17.6, 8.3, 7.7, 18.0, 10.9, 12.3, 8.9, 7.…
+## $ land_area          &lt;dbl&gt; 594.44, 1589.78, 884.88, 622.58, 644.78, 622.81, 77…</code></pre>
+<pre class="r"><code>counties %&gt;%
+  # Select the columns
+  select(state,county,population,poverty)</code></pre>
+<pre><code>## # A tibble: 3,138 × 4
+##    state   county   population poverty
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Alabama Autauga       55221    12.9
+##  2 Alabama Baldwin      195121    13.4
+##  3 Alabama Barbour       26932    26.7
+##  4 Alabama Bibb          22604    16.8
+##  5 Alabama Blount        57710    16.7
+##  6 Alabama Bullock       10678    24.6
+##  7 Alabama Butler        20354    25.4
+##  8 Alabama Calhoun      116648    20.5
+##  9 Alabama Chambers      34079    21.6
+## 10 Alabama Cherokee      26008    19.2
+## # … with 3,128 more rows</code></pre>
+</div>
+<div id="the-filter-and-arrange-verbs" class="section level2"
+number="1.2">
+<h2><span class="header-section-number">1.2</span> The filter and
+arrange verbs</h2>
+<pre class="r"><code>counties_selected &lt;- counties %&gt;%
+  select(state,county,population,unemployment,metro)
+
+counties_selected</code></pre>
+<pre><code>## # A tibble: 3,138 × 5
+##    state   county   population unemployment metro   
+##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   
+##  1 Alabama Autauga       55221          7.6 Metro   
+##  2 Alabama Baldwin      195121          7.5 Metro   
+##  3 Alabama Barbour       26932         17.6 Nonmetro
+##  4 Alabama Bibb          22604          8.3 Metro   
+##  5 Alabama Blount        57710          7.7 Metro   
+##  6 Alabama Bullock       10678         18   Nonmetro
+##  7 Alabama Butler        20354         10.9 Nonmetro
+##  8 Alabama Calhoun      116648         12.3 Metro   
+##  9 Alabama Chambers      34079          8.9 Nonmetro
+## 10 Alabama Cherokee      26008          7.9 Nonmetro
+## # … with 3,128 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  arrange(population)</code></pre>
+<pre><code>## # A tibble: 3,138 × 5
+##    state      county    population unemployment metro   
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   
+##  1 Hawaii     Kalawao           85          0   Metro   
+##  2 Texas      King             267          5.1 Nonmetro
+##  3 Nebraska   McPherson        433          0.9 Nonmetro
+##  4 Montana    Petroleum        443          6.6 Nonmetro
+##  5 Nebraska   Arthur           448          4   Nonmetro
+##  6 Nebraska   Loup             548          0.7 Nonmetro
+##  7 Nebraska   Blaine           551          0.7 Nonmetro
+##  8 New Mexico Harding          565          6   Nonmetro
+##  9 Texas      Kenedy           565          0   Nonmetro
+## 10 Colorado   San Juan         606         13.8 Nonmetro
+## # … with 3,128 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  arrange(desc(population))</code></pre>
+<pre><code>## # A tibble: 3,138 × 5
+##    state      county      population unemployment metro
+##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;
+##  1 California Los Angeles   10038388         10   Metro
+##  2 Illinois   Cook           5236393         10.7 Metro
+##  3 Texas      Harris         4356362          7.5 Metro
+##  4 Arizona    Maricopa       4018143          7.7 Metro
+##  5 California San Diego      3223096          8.7 Metro
+##  6 California Orange         3116069          7.6 Metro
+##  7 Florida    Miami-Dade     2639042         10   Metro
+##  8 New York   Kings          2595259         10   Metro
+##  9 Texas      Dallas         2485003          7.6 Metro
+## 10 New York   Queens         2301139          8.6 Metro
+## # … with 3,128 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  arrange(desc(population)) %&gt;%
+  filter(state == &quot;New York&quot;)</code></pre>
+<pre><code>## # A tibble: 62 × 5
+##    state    county      population unemployment metro
+##    &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;
+##  1 New York Kings          2595259         10   Metro
+##  2 New York Queens         2301139          8.6 Metro
+##  3 New York New York       1629507          7.5 Metro
+##  4 New York Suffolk        1501373          6.4 Metro
+##  5 New York Bronx          1428357         14   Metro
+##  6 New York Nassau         1354612          6.4 Metro
+##  7 New York Westchester     967315          7.6 Metro
+##  8 New York Erie            921584          7   Metro
+##  9 New York Monroe          749356          7.7 Metro
+## 10 New York Richmond        472481          6.9 Metro
+## # … with 52 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  arrange(desc(population)) %&gt;%
+  filter(unemployment&lt;6) #6%</code></pre>
+<pre><code>## # A tibble: 949 × 5
+##    state    county       population unemployment metro
+##    &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;
+##  1 Virginia Fairfax         1128722          4.9 Metro
+##  2 Utah     Salt Lake       1078958          5.8 Metro
+##  3 Hawaii   Honolulu         984178          5.6 Metro
+##  4 Texas    Collin           862215          4.9 Metro
+##  5 Texas    Denton           731851          5.7 Metro
+##  6 Texas    Fort Bend        658331          5.1 Metro
+##  7 Kansas   Johnson          566814          4.5 Metro
+##  8 Maryland Anne Arundel     555280          5.9 Metro
+##  9 Colorado Jefferson        552344          5.9 Metro
+## 10 Utah     Utah             551957          5.5 Metro
+## # … with 939 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  arrange(desc(population)) %&gt;%
+  filter(state == &quot;New York&quot;,unemployment&lt;6)</code></pre>
+<pre><code>## # A tibble: 5 × 5
+##   state    county     population unemployment metro   
+##   &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   
+## 1 New York Tompkins       103855          5.9 Metro   
+## 2 New York Chemung         88267          5.4 Metro   
+## 3 New York Madison         72427          5.1 Metro   
+## 4 New York Livingston      64801          5.4 Metro   
+## 5 New York Seneca          35144          5.5 Nonmetro</code></pre>
+</div>
+<div id="the-mutate-verb" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> The mutate()
+verb</h2>
+<pre class="r"><code>counties_selected %&gt;%
+  mutate(unemployed_population = population*unemployment/100) %&gt;%
+  arrange(desc(unemployed_population))</code></pre>
+<pre><code>## # A tibble: 3,138 × 6
+##    state      county         population unemployment metro unemployed_population
+##    &lt;chr&gt;      &lt;chr&gt;               &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;
+##  1 California Los Angeles      10038388         10   Metro              1003839.
+##  2 Illinois   Cook              5236393         10.7 Metro               560294.
+##  3 Texas      Harris            4356362          7.5 Metro               326727.
+##  4 Arizona    Maricopa          4018143          7.7 Metro               309397.
+##  5 California Riverside         2298032         12.9 Metro               296446.
+##  6 California San Diego         3223096          8.7 Metro               280409.
+##  7 Michigan   Wayne             1778969         14.9 Metro               265066.
+##  8 California San Bernardino    2094769         12.6 Metro               263941.
+##  9 Florida    Miami-Dade        2639042         10   Metro               263904.
+## 10 New York   Kings             2595259         10   Metro               259526.
+## # … with 3,128 more rows</code></pre>
+</div>
+</div>
+<div id="aggregating-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Aggregating Data</h1>
+<div id="the-count-verb" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> The count verb</h2>
+<pre class="r"><code>counties %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1  3138</code></pre>
+<pre class="r"><code>counties %&gt;%
+  count(state)</code></pre>
+<pre><code>## # A tibble: 50 × 2
+##    state           n
+##    &lt;chr&gt;       &lt;int&gt;
+##  1 Alabama        67
+##  2 Alaska         28
+##  3 Arizona        15
+##  4 Arkansas       75
+##  5 California     58
+##  6 Colorado       64
+##  7 Connecticut     8
+##  8 Delaware        3
+##  9 Florida        67
+## 10 Georgia       159
+## # … with 40 more rows</code></pre>
+<pre class="r"><code>counties %&gt;%
+  count(state, sort = TRUE)</code></pre>
+<pre><code>## # A tibble: 50 × 2
+##    state              n
+##    &lt;chr&gt;          &lt;int&gt;
+##  1 Texas            253
+##  2 Georgia          159
+##  3 Virginia         133
+##  4 Kentucky         120
+##  5 Missouri         115
+##  6 Kansas           105
+##  7 Illinois         102
+##  8 North Carolina   100
+##  9 Iowa              99
+## 10 Tennessee         95
+## # … with 40 more rows</code></pre>
+<pre class="r"><code>counties %&gt;%
+  count(state, wt = population, sort = TRUE)</code></pre>
+<pre><code>## # A tibble: 50 × 2
+##    state                 n
+##    &lt;chr&gt;             &lt;dbl&gt;
+##  1 California     38421464
+##  2 Texas          26538497
+##  3 New York       19673174
+##  4 Florida        19645772
+##  5 Illinois       12873761
+##  6 Pennsylvania   12779559
+##  7 Ohio           11575977
+##  8 Georgia        10006693
+##  9 Michigan        9900571
+## 10 North Carolina  9845333
+## # … with 40 more rows</code></pre>
+</div>
+<div id="the-group_by-summarize-and-ungroup-verbs"
+class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> The group_by,
+summarize, and ungroup verbs</h2>
+<pre class="r"><code>counties %&gt;%
+  summarize(total_pop = sum(population))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   total_pop
+##       &lt;dbl&gt;
+## 1 315845353</code></pre>
+<pre class="r"><code>counties %&gt;%
+  group_by(state) %&gt;%
+  summarize(total_pop = sum(population),
+            average_enemployment = mean(unemployment)) %&gt;%
+  arrange(desc(average_enemployment))</code></pre>
+<pre><code>## # A tibble: 50 × 3
+##    state          total_pop average_enemployment
+##    &lt;chr&gt;              &lt;dbl&gt;                &lt;dbl&gt;
+##  1 Mississippi      2988081                12.0 
+##  2 Arizona          6641928                12.0 
+##  3 South Carolina   4777576                11.3 
+##  4 Alabama          4830620                11.3 
+##  5 California      38421464                10.8 
+##  6 Nevada           2798636                10.5 
+##  7 North Carolina   9845333                10.5 
+##  8 Florida         19645772                10.4 
+##  9 Georgia         10006693                 9.97
+## 10 Michigan         9900571                 9.96
+## # … with 40 more rows</code></pre>
+<pre class="r"><code>counties %&gt;%
+  group_by(state, metro) %&gt;%
+  summarize(total_pop = sum(population),
+            average_enemployment = mean(unemployment)) %&gt;%
+  arrange(desc(average_enemployment))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 97 × 4
+## # Groups:   state [50]
+##    state          metro    total_pop average_enemployment
+##    &lt;chr&gt;          &lt;chr&gt;        &lt;dbl&gt;                &lt;dbl&gt;
+##  1 Arizona        Nonmetro    346783                 13.9
+##  2 South Carolina Nonmetro    753821                 13.0
+##  3 Alabama        Nonmetro   1159243                 12.9
+##  4 Mississippi    Nonmetro   1628768                 12.3
+##  5 Florida        Nonmetro    703951                 11.5
+##  6 California     Nonmetro    834035                 11.5
+##  7 North Carolina Nonmetro   2205341                 11.0
+##  8 Mississippi    Metro      1359313                 10.9
+##  9 Louisiana      Nonmetro    768636                 10.5
+## 10 Nevada         Nonmetro    269634                 10.5
+## # … with 87 more rows</code></pre>
+<pre class="r"><code>counties %&gt;%
+  group_by(state, metro) %&gt;%
+  summarize(total_pop = sum(population),
+            average_enemployment = mean(unemployment)) %&gt;%
+  arrange(desc(average_enemployment)) %&gt;%
+  ungroup()</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 97 × 4
+##    state          metro    total_pop average_enemployment
+##    &lt;chr&gt;          &lt;chr&gt;        &lt;dbl&gt;                &lt;dbl&gt;
+##  1 Arizona        Nonmetro    346783                 13.9
+##  2 South Carolina Nonmetro    753821                 13.0
+##  3 Alabama        Nonmetro   1159243                 12.9
+##  4 Mississippi    Nonmetro   1628768                 12.3
+##  5 Florida        Nonmetro    703951                 11.5
+##  6 California     Nonmetro    834035                 11.5
+##  7 North Carolina Nonmetro   2205341                 11.0
+##  8 Mississippi    Metro      1359313                 10.9
+##  9 Louisiana      Nonmetro    768636                 10.5
+## 10 Nevada         Nonmetro    269634                 10.5
+## # … with 87 more rows</code></pre>
+</div>
+<div id="the-slice_min-and-slice_max-verbs" class="section level2"
+number="2.3">
+<h2><span class="header-section-number">2.3</span> The slice_min and
+slice_max verbs</h2>
+<pre class="r"><code>counties_selected %&gt;%
+  group_by(state) %&gt;%
+  slice_max(population, n = 1)</code></pre>
+<pre><code>## # A tibble: 50 × 5
+## # Groups:   state [50]
+##    state       county                 population unemployment metro
+##    &lt;chr&gt;       &lt;chr&gt;                       &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;
+##  1 Alabama     Jefferson                  659026          9.1 Metro
+##  2 Alaska      Anchorage Municipality     299107          6.7 Metro
+##  3 Arizona     Maricopa                  4018143          7.7 Metro
+##  4 Arkansas    Pulaski                    390463          7.5 Metro
+##  5 California  Los Angeles              10038388         10   Metro
+##  6 Colorado    El Paso                    655024          8.4 Metro
+##  7 Connecticut Fairfield                  939983          9   Metro
+##  8 Delaware    New Castle                 549643          7.4 Metro
+##  9 Florida     Miami-Dade                2639042         10   Metro
+## 10 Georgia     Fulton                     983903          9.9 Metro
+## # … with 40 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  group_by(state) %&gt;%
+  slice_min(unemployment, n = 1)</code></pre>
+<pre><code>## # A tibble: 51 × 5
+## # Groups:   state [50]
+##    state       county                     population unemployment metro   
+##    &lt;chr&gt;       &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   
+##  1 Alabama     Shelby                         203530          5.5 Metro   
+##  2 Alaska      Aleutians West Census Area       5684          2.1 Nonmetro
+##  3 Arizona     Maricopa                      4018143          7.7 Metro   
+##  4 Arkansas    Benton                         238198          4.2 Metro   
+##  5 California  Marin                          258349          5.7 Metro   
+##  6 Colorado    Jackson                          1335          1.5 Nonmetro
+##  7 Connecticut Middlesex                      165165          6   Metro   
+##  8 Delaware    New Castle                     549643          7.4 Metro   
+##  9 Florida     Monroe                          75901          6   Nonmetro
+## 10 Georgia     Bacon                           11222          4.4 Nonmetro
+## # … with 41 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  group_by(state) %&gt;%
+  slice_max(unemployment, n = 3)</code></pre>
+<pre><code>## # A tibble: 153 × 5
+## # Groups:   state [50]
+##    state    county                    population unemployment metro   
+##    &lt;chr&gt;    &lt;chr&gt;                          &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   
+##  1 Alabama  Conecuh                        12865         22.6 Nonmetro
+##  2 Alabama  Wilcox                         11235         20.8 Nonmetro
+##  3 Alabama  Monroe                         22217         20.7 Nonmetro
+##  4 Alaska   Northwest Arctic Borough        7732         21.9 Nonmetro
+##  5 Alaska   Yukon-Koyukuk Census Area       5644         18.2 Nonmetro
+##  6 Alaska   Bethel Census Area             17776         17.6 Nonmetro
+##  7 Arizona  Navajo                        107656         19.8 Nonmetro
+##  8 Arizona  Apache                         72124         18.2 Nonmetro
+##  9 Arizona  Graham                         37407         14.1 Nonmetro
+## 10 Arkansas Phillips                       20391         18.1 Nonmetro
+## # … with 143 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %&gt;%
+  summarize(total_pop = sum(population))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 97 × 3
+## # Groups:   state [50]
+##    state      metro    total_pop
+##    &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;
+##  1 Alabama    Metro      3671377
+##  2 Alabama    Nonmetro   1159243
+##  3 Alaska     Metro       494990
+##  4 Alaska     Nonmetro    230471
+##  5 Arizona    Metro      6295145
+##  6 Arizona    Nonmetro    346783
+##  7 Arkansas   Metro      1806867
+##  8 Arkansas   Nonmetro   1151341
+##  9 California Metro     37587429
+## 10 California Nonmetro    834035
+## # … with 87 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %&gt;%
+  summarize(total_pop = sum(population)) %&gt;%
+  # Extract the most populated row for each state
+  slice_max(total_pop, n = 1)</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 50 × 3
+## # Groups:   state [50]
+##    state       metro total_pop
+##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;
+##  1 Alabama     Metro   3671377
+##  2 Alaska      Metro    494990
+##  3 Arizona     Metro   6295145
+##  4 Arkansas    Metro   1806867
+##  5 California  Metro  37587429
+##  6 Colorado    Metro   4590896
+##  7 Connecticut Metro   3406918
+##  8 Delaware    Metro    926454
+##  9 Florida     Metro  18941821
+## 10 Georgia     Metro   8233886
+## # … with 40 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %&gt;%
+  summarize(total_pop = sum(population)) %&gt;%
+  # Extract the most populated row for each state
+  slice_max(total_pop, n = 1) %&gt;%
+  # Count the states with more people in Metro or Nonmetro areas
+  ungroup()</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 50 × 3
+##    state       metro total_pop
+##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;
+##  1 Alabama     Metro   3671377
+##  2 Alaska      Metro    494990
+##  3 Arizona     Metro   6295145
+##  4 Arkansas    Metro   1806867
+##  5 California  Metro  37587429
+##  6 Colorado    Metro   4590896
+##  7 Connecticut Metro   3406918
+##  8 Delaware    Metro    926454
+##  9 Florida     Metro  18941821
+## 10 Georgia     Metro   8233886
+## # … with 40 more rows</code></pre>
+<pre class="r"><code>counties_selected %&gt;%
+  # Find the total population for each combination of state and metro
+  group_by(state, metro) %&gt;%
+  summarize(total_pop = sum(population)) %&gt;%
+  # Extract the most populated row for each state
+  slice_max(total_pop, n = 1) %&gt;%
+  # Count the states with more people in Metro or Nonmetro areas
+  ungroup() %&gt;%
+  count(metro)</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   metro        n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 Metro       44
+## 2 Nonmetro     6</code></pre>
+</div>
+</div>
+<div id="selecting-and-transforming-data" class="section level1"
+number="3">
+<h1><span class="header-section-number">3</span> Selecting and
+Transforming Data</h1>
+<hr />
+<p>This code was last compiled at 2023-04-12 15:11:49</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

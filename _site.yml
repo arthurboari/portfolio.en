@@ -22,6 +22,8 @@ navbar:
           href: datacamp02.html
         - text: "03: Introduction to the Tidyverse"
           href: datacamp03.html
+        - text: "04: Data Manipulation with dplyr"
+          href: datacamp04.html
   right:
     - text: "Language"
       icon: fa-language
