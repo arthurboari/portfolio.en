@@ -12,20 +12,7 @@ navbar:
         - text: "Dashboards"
         - text: "Taylor Swift Spotify Data"
           href: "TSdashboard.html"
-    - text: "My annotations"
-      icon: fa-file-text-o
-      menu:
-        - text: "R"
-        - text: "01: Introduction to R"
-          href: datacamp01.html
-        - text: "02: Intermediate R"
-          href: datacamp02.html
-        - text: "03: Introduction to the Tidyverse"
-          href: datacamp03.html
-        - text: "04: Data Manipulation with dplyr"
-          href: datacamp04.html
-        - text: "05: Joining Data with dplyr"
-          href: datacamp05.html
+
   right:
     - text: "Language"
       icon: fa-language
