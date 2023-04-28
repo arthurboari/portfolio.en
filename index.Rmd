@@ -1,5 +1,5 @@
 ---
-title: "Sobre | Arthur Boari"
+title: "About | Arthur Boari"
 output:
   html_document
 ---
