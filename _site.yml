@@ -17,9 +17,9 @@ navbar:
       icon: fa-language
       menu:
         - text: "EN-US"
-          href: https://arthurboari.github.io/portfolio_en/
+          href: https://arthurboari.github.io/portfolio.en/
         - text: "PT-BR"
-          href: https://arthurboari.github.io/portfolio_pt/
+          href: https://arthurboari.github.io/portfolio.pt/
     - text: "Contact"
       icon: fa-envelope
       href: mailto:eng.arthurboari@gmail.com
