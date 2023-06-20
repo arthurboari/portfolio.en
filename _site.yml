@@ -3,6 +3,9 @@ navbar:
   title: "Arthur Boari"
   type: default
   left:
+    - text: "Blog"
+      icon: fa-link
+      href: https://arthurboari.github.io/blog/
     - text: "CV Lattes"
       icon: fa-link
       href: http://lattes.cnpq.br/7113151378838886
